@@ -1,0 +1,7 @@
+.git
+.DS_Store
+Arquivo.zip
+Dockerfile
+.dockerignore
+node_modules
+.gemini
