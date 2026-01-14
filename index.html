@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantic Solutions - Automatize Processos de Venda com IA</title>
+    <meta name="description"
+        content="Capture, qualifique e organize leads automaticamente com a IA da Quantic. Automação para WhatsApp, Instagram e CRM.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        q: {
+                            bg: '#0B0B10',
+                            surface: '#12121A',
+                            primary: '#7C3AED',
+                            primaryHover: '#6D28D9',
+                            secondary: '#A855F7',
+                            border: '#232336',
+                            text: '#FFFFFF',
+                            muted: '#B9B9C6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-glow': 'radial-gradient(circle at center, rgba(124, 58, 237, 0.2) 0%, rgba(11, 11, 16, 0) 80%)',
+                        'card-gradient': 'linear-gradient(180deg, rgba(35, 35, 54, 0.4) 0%, rgba(18, 18, 26, 0.4) 100%)',
+                        'purple-gradient': 'linear-gradient(135deg, #7C3AED 0%, #A855F7 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0B0B10;
+            color: #FFFFFF;
+        }
+
+        .glass {
+            background: rgba(18, 18, 26, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(35, 35, 54, 0.5);
+        }
+
+        .glass-card {
+            background: rgba(18, 18, 26, 0.4);
+            backdrop-filter: blur(8px);
+            border: 1px solid #232336;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: #7C3AED;
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #7C3AED;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .glow-text {
+            text-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+        }
+
+        .cursor::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+            color: #A855F7;
+            margin-left: 4px;
+        }
+
+        @keyframes blink {
+
+            from,
+            to {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .typing-text span {
+            opacity: 0;
+            display: inline-block;
+            transform: translateY(5px);
+            transition: all 0.1s ease;
+        }
+
+        .typing-text span.typed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .check-icon {
+            color: #A855F7;
+            flex-shrink: 0;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0B0B10;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #232336;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #7C3AED;
+        }
+
+        @keyframes fade-up {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes reveal {
+            0% {
+                clip-path: inset(0 100% 0 0);
+            }
+
+            100% {
+                clip-path: inset(0 0 0 0);
+            }
+        }
+
+        .animate-fade-up {
+            animation: fade-up 0.8s cubic-bezier(0.21, 0.45, 0.32, 0.9) forwards;
+        }
+
+        .animate-reveal {
+            animation: reveal 1s cubic-bezier(0.21, 0.45, 0.32, 0.9) forwards;
+        }
+
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+
+        .delay-400 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-500 {
+            animation-delay: 0.5s;
+        }
+
+        .delay-600 {
+            animation-delay: 0.6s;
+        }
+
+        .delay-700 {
+            animation-delay: 0.7s;
+        }
+
+        .delay-800 {
+            animation-delay: 0.8s;
+        }
+
+        .delay-1000 {
+            animation-delay: 2.1s;
+        }
+
+        .delay-1500 {
+            animation-delay: 1.5s;
+        }
+
+        .delay-2000 {
+            animation-delay: 2s;
+        }
+
+        .reveal-on-scroll {
+            opacity: 0;
+        }
+
+        .reveal-on-scroll.active {
+            animation: fade-up 0.8s cubic-bezier(0.21, 0.45, 0.32, 0.9) forwards;
+        }
+
+        .reveal-on-scroll.active.reveal-line {
+            opacity: 1;
+            animation: reveal 2.5s cubic-bezier(0.21, 0.45, 0.32, 0.9) forwards;
+        }
+
+        /* Chat Animation Styles */
+        .chat-container {
+            perspective: 1000px;
+        }
+
+        .chat-window {
+            background: rgba(18, 18, 26, 0.8);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), 0 0 20px rgba(124, 58, 237, 0.05);
+            transform: rotateY(-5deg) rotateX(5deg);
+        }
+
+        .message {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .message.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .typing-indicator span {
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+
+        .typing-indicator span:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            80%,
+            100% {
+                transform: scale(0);
+            }
+
+            40% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 glass border-b border-q-border/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center">
+                    <a href="#" class="flex items-center">
+                        <img src="logo.png" alt="QUANTIC" class="h-6 md:h-7 w-auto">
+                    </a>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#como-funciona"
+                        class="text-sm font-medium text-q-muted hover:text-white transition-colors nav-link">Como
+                        funciona</a>
+                    <a href="#planos"
+                        class="text-sm font-medium text-q-muted hover:text-white transition-colors nav-link">Planos</a>
+                    <a href="#nichos"
+                        class="text-sm font-medium text-q-muted hover:text-white transition-colors nav-link">Nichos</a>
+                    <a href="#faq"
+                        class="text-sm font-medium text-q-muted hover:text-white transition-colors nav-link">FAQ</a>
+                </div>
+                <!-- CTAs -->
+                <div class="hidden md:flex items-center space-x-4">
+
+                    <a href="agendar.html"
+                        class="px-5 py-2 text-sm font-medium text-white bg-q-primary rounded-lg hover:bg-q-primaryHover transition-all shadow-[0_0_15px_rgba(124,58,237,0.3)] hover:shadow-[0_0_25px_rgba(124,58,237,0.5)]">
+                        Agendar Demonstração
+                    </a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-q-muted hover:text-white focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-q-surface border-t border-q-border absolute w-full p-4">
+            <div class="flex flex-col space-y-4">
+                <a href="#como-funciona" class="text-q-muted hover:text-white">Como funciona</a>
+                <a href="#planos" class="text-q-muted hover:text-white">Planos</a>
+                <a href="#nichos" class="text-q-muted hover:text-white">Nichos</a>
+                <a href="#faq" class="text-q-muted hover:text-white">FAQ</a>
+
+                <a href="agendar.html" class="text-center w-full py-2 bg-q-primary rounded-lg text-white">Agendar
+                    Demonstração</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <!-- Neural Network Background -->
+        <canvas id="neuralNetwork"
+            class="neural-canvas absolute inset-0 w-full h-full pointer-events-none opacity-50"></canvas>
+
+        <div
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl bg-hero-glow pointer-events-none opacity-60">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+                <!-- Left Content -->
+                <div class="text-center lg:text-left max-w-2xl mx-auto lg:mx-0">
+                    <!-- Headline with Typing Effect -->
+                    <h1 id="typing-headline"
+                        class="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-6 leading-tight min-h-[1.2em] cursor">
+                        <!-- Text will be injected by JS -->
+                    </h1>
+
+                    <p
+                        class="text-lg md:text-xl text-q-muted mb-8 leading-relaxed opacity-0 animate-fade-up delay-1000">
+                        Capture, qualifique e agende reuniões automaticamente com a potência da nossa IA. Transforme seu
+                        WhatsApp em uma máquina de vendas 24/7.
+                    </p>
+
+                    <div
+                        class="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4 opacity-0 animate-fade-up delay-300">
+                        <a href="agendar.html"
+                            class="w-full sm:w-auto px-8 py-4 text-white bg-q-primary rounded-xl font-semibold hover:bg-q-primaryHover transition-all shadow-[0_0_20px_rgba(124,58,237,0.4)] hover:shadow-[0_0_30px_rgba(124,58,237,0.6)] text-lg">
+                            Agendar Demonstração
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Content (Chat Animation) -->
+                <div class="hidden lg:block chat-container relative">
+                    <div class="chat-window rounded-3xl p-6 min-h-[400px] flex flex-col gap-4">
+                        <!-- Chat Header -->
+                        <div class="flex items-center gap-3 border-b border-white/5 pb-4 mb-2">
+                            <div class="w-10 h-10 bg-q-primary rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-white">Quantic AI</h4>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                                    <span class="text-[10px] text-q-muted uppercase tracking-wider">Online agora</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chat Messages Container -->
+                        <div id="hero-chat-messages"
+                            class="flex flex-col gap-4 overflow-y-auto max-h-[300px] scrollbar-hide pr-2">
+                            <!-- Client Message -->
+                            <div class="message self-start bg-q-border/30 rounded-2xl rounded-tl-none p-3 max-w-[80%]">
+                                <p class="text-xs text-white">Olá, gostaria de saber mais sobre a Quantic!</p>
+                            </div>
+
+                            <!-- AI Message -->
+                            <div
+                                class="message self-end bg-q-primary/20 border border-q-primary/20 rounded-2xl rounded-tr-none p-4 max-w-[80%]">
+                                <p class="text-xs text-white leading-relaxed">Olá! Eu sou a IA da Quantic. 👋 Posso te
+                                    ajudar a automatizar seu atendimento e triplicar suas vendas. Qual o seu nicho de
+                                    atuação?</p>
+                            </div>
+
+                            <!-- Client Message -->
+                            <div class="message self-start bg-q-border/30 rounded-2xl rounded-tl-none p-3 max-w-[80%]">
+                                <p class="text-xs text-white">Tenho uma imobiliária e recebo muitos leads curiosos.</p>
+                            </div>
+
+                            <!-- AI Message -->
+                            <div
+                                class="message self-end bg-q-primary/20 border border-q-primary/20 rounded-2xl rounded-tr-none p-4 max-w-[80%]">
+                                <p class="text-xs text-white leading-relaxed">Entendo perfeitamente! Posso qualificar
+                                    todos os seus leads imobiliários, responder dúvidas 24/7 e agendar visitas direto na
+                                    sua agenda. Quer ver como funciona?</p>
+                                <div class="mt-3 flex gap-2">
+                                    <span
+                                        class="text-[10px] px-2 py-1 bg-q-primary text-white rounded-md font-bold uppercase cursor-default">Qualificar
+                                        Leads</span>
+                                    <span
+                                        class="text-[10px] px-2 py-1 bg-q-primary text-white rounded-md font-bold uppercase cursor-default">Agendar
+                                        Visitas</span>
+                                </div>
+                            </div>
+
+                            <!-- Typing Indicator (hidden initially) -->
+                            <div id="typing-indicator"
+                                class="self-end bg-q-primary/20 rounded-2xl p-3 items-center gap-1 hidden">
+                                <div class="typing-indicator flex gap-1">
+                                    <span class="w-1.5 h-1.5 bg-q-primary rounded-full"></span>
+                                    <span class="w-1.5 h-1.5 bg-q-primary rounded-full"></span>
+                                    <span class="w-1.5 h-1.5 bg-q-primary rounded-full"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Decorative Elements -->
+                    <div class="absolute -bottom-6 -left-6 w-24 h-24 bg-q-primary/10 blur-3xl rounded-full"></div>
+                    <div class="absolute -top-6 -right-6 w-32 h-32 bg-q-secondary/10 blur-3xl rounded-full"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+    <!-- Porque você perde vendas section -->
+    <section class="py-24 bg-q-bg relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/2 h-1/2 bg-q-primary/5 blur-[120px] rounded-full pointer-events-none">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 w-1/2 h-1/2 bg-q-secondary/5 blur-[120px] rounded-full pointer-events-none">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-20">
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-6 text-white">
+                    Por que você <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-q-primary to-q-secondary">perde
+                        vendas?</span>
+                </h2>
+                <p class="text-q-muted max-w-2xl mx-auto text-lg">
+                    Identificamos os 4 maiores vilões que estão drenando o seu lucro todos os dias.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Card 1 -->
+                <div class="group relative">
+                    <div
+                        class="absolute -inset-px bg-gradient-to-b from-q-primary/20 to-transparent rounded-2xl transition-all duration-500 group-hover:from-q-primary/40">
+                    </div>
+                    <div
+                        class="relative bg-q-surface/40 backdrop-blur-xl border border-white/5 p-8 rounded-2xl h-full flex flex-col hover:border-q-primary/30 transition-all duration-500">
+                        <div class="flex justify-between items-start mb-6">
+                            <div
+                                class="w-12 h-12 bg-q-primary/10 rounded-xl flex items-center justify-center border border-q-primary/20 group-hover:bg-q-primary/20 transition-all">
+                                <svg class="w-6 h-6 text-q-secondary" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <span class="text-[10px] font-bold text-q-primary/50 tracking-widest uppercase">Vilão
+                                #01</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-q-secondary transition-colors">
+                            Perda
+                            de Leads</h3>
+                        <p class="text-q-muted text-sm leading-relaxed">
+                            A demora na resposta faz o cliente procurar o concorrente em minutos. No WhatsApp,
+                            velocidade é a moeda de troca.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group relative">
+                    <div
+                        class="absolute -inset-px bg-gradient-to-b from-q-primary/20 to-transparent rounded-2xl transition-all duration-500 group-hover:from-q-primary/40">
+                    </div>
+                    <div
+                        class="relative bg-q-surface/40 backdrop-blur-xl border border-white/5 p-8 rounded-2xl h-full flex flex-col hover:border-q-primary/30 transition-all duration-500">
+                        <div class="flex justify-between items-start mb-6">
+                            <div
+                                class="w-12 h-12 bg-q-primary/10 rounded-xl flex items-center justify-center border border-q-primary/20 group-hover:bg-q-primary/20 transition-all">
+                                <svg class="w-6 h-6 text-q-secondary" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <span class="text-[10px] font-bold text-q-primary/50 tracking-widest uppercase">Vilão
+                                #02</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-q-secondary transition-colors">
+                            Tempo
+                            Perdido</h3>
+                        <p class="text-q-muted text-sm leading-relaxed">
+                            Sua equipe gasta horas preciosas respondendo perguntas repetitivas e filtrando curiosos sem
+                            dinheiro.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group relative">
+                    <div
+                        class="absolute -inset-px bg-gradient-to-b from-q-primary/20 to-transparent rounded-2xl transition-all duration-500 group-hover:from-q-primary/40">
+                    </div>
+                    <div
+                        class="relative bg-q-surface/40 backdrop-blur-xl border border-white/5 p-8 rounded-2xl h-full flex flex-col hover:border-q-primary/30 transition-all duration-500">
+                        <div class="flex justify-between items-start mb-6">
+                            <div
+                                class="w-12 h-12 bg-q-primary/10 rounded-xl flex items-center justify-center border border-q-primary/20 group-hover:bg-q-primary/20 transition-all">
+                                <svg class="w-6 h-6 text-transparent" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path class="text-q-secondary" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <span class="text-[10px] font-bold text-q-primary/50 tracking-widest uppercase">Vilão
+                                #03</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-q-secondary transition-colors">
+                            Custo
+                            Elevado</h3>
+                        <p class="text-q-muted text-sm leading-relaxed">
+                            Escalar o atendimento contratando humanos infla sua folha de pagamento e traz problemas de
+                            gestão e turnover.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="group relative">
+                    <div
+                        class="absolute -inset-px bg-gradient-to-b from-q-primary/20 to-transparent rounded-2xl transition-all duration-500 group-hover:from-q-primary/40">
+                    </div>
+                    <div
+                        class="relative bg-q-surface/40 backdrop-blur-xl border border-white/5 p-8 rounded-2xl h-full flex flex-col hover:border-q-primary/30 transition-all duration-500">
+                        <div class="flex justify-between items-start mb-6">
+                            <div
+                                class="w-12 h-12 bg-q-primary/10 rounded-xl flex items-center justify-center border border-q-primary/20 group-hover:bg-q-primary/20 transition-all">
+                                <svg class="w-6 h-6 text-q-secondary" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 3v18h18M13 18l5-5 5 5"></path>
+                                </svg>
+                            </div>
+                            <span class="text-[10px] font-bold text-q-primary/50 tracking-widest uppercase">Vilão
+                                #04</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-q-secondary transition-colors">
+                            Falta
+                            de Dados</h3>
+                        <p class="text-q-muted text-sm leading-relaxed">
+                            Sem saber de onde vêm seus melhores leads, você joga dinheiro fora com tráfego ineficiente e
+                            sem otimização.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Como Funciona -->
+    <section id="como-funciona" class="py-16 relative overflow-hidden">
+        <canvas class="neural-canvas absolute inset-0 w-full h-full pointer-events-none opacity-40"></canvas>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-q-secondary font-semibold tracking-wider text-sm uppercase">Processo
+                    Inteligente</span>
+                <h2 class="font-display text-3xl md:text-4xl font-bold mt-2">Como a Quantic atua</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+                <!-- Connector Line (Desktop) -->
+                <div
+                    class="hidden md:block absolute top-12 left-[10%] right-[10%] h-0.5 bg-gradient-to-r from-q-border via-q-primary/50 to-q-border -z-10 reveal-on-scroll reveal-line delay-100">
+                </div>
+
+                <!-- Step 1 -->
+                <div class="flex flex-col items-center text-center reveal-on-scroll delay-200">
+                    <div
+                        class="w-24 h-24 bg-q-surface border border-q-border rounded-full flex items-center justify-center mb-6 shadow-lg shadow-q-primary/5 relative z-10">
+                        <span class="w-full h-full absolute rounded-full bg-q-primary/5 animate-ping opacity-20"></span>
+                        <svg class="w-8 h-8 text-q-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">1. Captação</h3>
+                    <p class="text-sm text-q-muted">Extração automática do Google Maps e Instagram.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="flex flex-col items-center text-center reveal-on-scroll delay-800">
+                    <div
+                        class="w-24 h-24 bg-q-surface border border-q-border rounded-full flex items-center justify-center mb-6 shadow-lg relative z-10">
+                        <svg class="w-8 h-8 text-q-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">2. Qualificação</h3>
+                    <p class="text-sm text-q-muted">IA conversa no WhatsApp e filtra os curiosos.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="flex flex-col items-center text-center reveal-on-scroll delay-1500">
+                    <div
+                        class="w-24 h-24 bg-q-surface border border-q-border rounded-full flex items-center justify-center mb-6 shadow-lg relative z-10">
+                        <svg class="w-8 h-8 text-q-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">3. Organização</h3>
+                    <p class="text-sm text-q-muted">Leads enviados para o CRM em tempo real.</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="flex flex-col items-center text-center reveal-on-scroll delay-2000">
+                    <div
+                        class="w-24 h-24 bg-q-surface border border-q-border rounded-full flex items-center justify-center mb-6 shadow-lg relative z-10">
+                        <svg class="w-8 h-8 text-q-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">4. Conversão</h3>
+                    <p class="text-sm text-q-muted">Seu time só fala com quem quer comprar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Por que escolher a Quantic (Benefícios Adicionais) -->
+    <section class="py-24 bg-q-surface/30 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card Velocidade -->
+                <div
+                    class="flex flex-col items-center text-center p-10 bg-q-surface/20 border border-white/5 rounded-[2.5rem] hover:border-q-primary/30 transition-all duration-500 group relative overflow-hidden">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-b from-q-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    </div>
+
+                    <div
+                        class="w-20 h-20 mb-8 bg-q-surface border border-q-primary/40 rounded-3xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-[0_0_20px_rgba(124,58,237,0.1)]">
+                        <svg class="w-10 h-10 text-q-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-q-secondary mb-4">Velocidade Extrema</h3>
+                    <p class="text-q-muted text-sm leading-relaxed mb-8">
+                        Responda leads em segundos, 24/7. Nunca mais deixe um cliente esperando no vácuo.
+                    </p>
+
+                    <div class="flex flex-col gap-2 mt-auto">
+                        <span
+                            class="px-4 py-1.5 bg-q-primary/90 text-white text-[10px] font-black uppercase tracking-[0.1em] rounded-lg">Atendimento
+                            Instantâneo</span>
+                        <span
+                            class="px-4 py-1.5 bg-q-primary/90 text-white text-[10px] font-black uppercase tracking-[0.1em] rounded-lg">Sem
+                            filas de espera</span>
+                    </div>
+                </div>
+
+                <!-- Card CRM -->
+                <div
+                    class="flex flex-col items-center text-center p-10 bg-q-surface/20 border border-white/5 rounded-[2.5rem] hover:border-q-primary/30 transition-all duration-500 group relative overflow-hidden">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-b from-q-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    </div>
+
+                    <div
+                        class="w-20 h-20 mb-8 bg-q-surface border border-q-primary/40 rounded-3xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-[0_0_20px_rgba(124,58,237,0.1)]">
+                        <svg class="w-10 h-10 text-q-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
+                            </path>
+                        </svg>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-q-secondary mb-4">CRM Organizado</h3>
+                    <p class="text-q-muted text-sm leading-relaxed mb-8">
+                        Chega de planilhas bagunçadas. Tenha uma visão clara do seu pipeline de vendas.
+                    </p>
+
+                    <div class="flex flex-col gap-2 mt-auto">
+                        <span
+                            class="px-4 py-1.5 bg-q-primary/90 text-white text-[10px] font-black uppercase tracking-[0.1em] rounded-lg">Integração
+                            CRM</span>
+                        <span
+                            class="px-4 py-1.5 bg-q-primary/90 text-white text-[10px] font-black uppercase tracking-[0.1em] rounded-lg">Histórico
+                            Completo</span>
+                    </div>
+                </div>
+
+                <!-- Card Inteligência -->
+                <div
+                    class="flex flex-col items-center text-center p-10 bg-q-surface/20 border border-white/5 rounded-[2.5rem] hover:border-q-primary/30 transition-all duration-500 group relative overflow-hidden">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-b from-q-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    </div>
+
+                    <div
+                        class="w-20 h-20 mb-8 bg-q-surface border border-q-primary/40 rounded-3xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-[0_0_20px_rgba(124,58,237,0.1)]">
+                        <svg class="w-10 h-10 text-q-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
+                            </path>
+                        </svg>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-q-secondary mb-4">Inteligência de Vendas</h3>
+                    <p class="text-q-muted text-sm leading-relaxed mb-8">
+                        Nossa IA não apenas responde, ela entende o contexto e guia para o fechamento.
+                    </p>
+
+                    <div class="flex flex-col gap-2 mt-auto">
+                        <span
+                            class="px-4 py-1.5 bg-q-primary/90 text-white text-[10px] font-black uppercase tracking-[0.1em] rounded-lg">Qualificação
+                            Automática</span>
+                        <span
+                            class="px-4 py-1.5 bg-q-primary/90 text-white text-[10px] font-black uppercase tracking-[0.1em] rounded-lg">Agendamento
+                            Inteligente</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- Nichos -->
+    <section id="nichos" class="py-16 relative overflow-hidden">
+        <canvas class="neural-canvas absolute inset-0 w-full h-full pointer-events-none opacity-40"></canvas>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <h2 class="font-display text-3xl font-bold text-center mb-12">Para quem é a Quantic?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card Imobiliária -->
+                <div
+                    class="group bg-q-surface border border-q-border p-6 rounded-xl text-center hover:border-q-primary transition-all duration-300 hover:shadow-[0_0_20px_rgba(124,58,237,0.2)] hover:-translate-y-1 cursor-pointer">
+                    <div
+                        class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-q-primary/20 to-q-secondary/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-7 h-7 text-q-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                            </path>
+                        </svg>
+                    </div>
+                    <h4 class="font-bold text-white mb-2 group-hover:text-q-secondary transition-colors uppercase">
+                        Imobiliária
+                    </h4>
+                    <p class="text-xs text-q-muted leading-relaxed">Qualifica leads e agenda visitas
+                        automaticamente.
+                    </p>
+                </div>
+
+                <!-- Card Clínicas Gerais -->
+                <div
+                    class="group bg-q-surface border border-q-border p-6 rounded-xl text-center hover:border-q-primary transition-all duration-300 hover:shadow-[0_0_20px_rgba(124,58,237,0.2)] hover:-translate-y-1 cursor-pointer">
+                    <div
+                        class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-q-primary/20 to-q-secondary/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-7 h-7 text-q-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h4 class="font-bold text-white mb-2 group-hover:text-q-secondary transition-colors uppercase">
+                        Clínicas Gerais
+                    </h4>
+                    <p class="text-xs text-q-muted leading-relaxed">Agendamento de consultas e triagem inteligente.</p>
+                </div>
+
+                <!-- Card Consultorias -->
+                <div
+                    class="group bg-q-surface border border-q-border p-6 rounded-xl text-center hover:border-q-primary transition-all duration-300 hover:shadow-[0_0_20px_rgba(124,58,237,0.2)] hover:-translate-y-1 cursor-pointer">
+                    <div
+                        class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-q-primary/20 to-q-secondary/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-7 h-7 text-q-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h4 class="font-bold text-white mb-2 group-hover:text-q-secondary transition-colors uppercase">
+                        Consultorias
+                    </h4>
+                    <p class="text-xs text-q-muted leading-relaxed">Filtra clientes ideais antes da reunião.</p>
+                </div>
+
+                <!-- Card Ecommerce -->
+                <div
+                    class="group bg-q-surface border border-q-border p-6 rounded-xl text-center hover:border-q-primary transition-all duration-300 hover:shadow-[0_0_20px_rgba(124,58,237,0.2)] hover:-translate-y-1 cursor-pointer">
+                    <div
+                        class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-q-primary/20 to-q-secondary/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-7 h-7 text-q-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h4 class="font-bold text-white mb-2 group-hover:text-q-secondary transition-colors uppercase">
+                        Ecommerce</h4>
+                    <p class="text-xs text-q-muted leading-relaxed">Recupera carrinhos e tira dúvidas 24h.</p>
+                </div>
+
+                <!-- Card Agências de Marketing -->
+                <div
+                    class="group bg-q-surface border border-q-border p-6 rounded-xl text-center hover:border-q-primary transition-all duration-300 hover:shadow-[0_0_20px_rgba(124,58,237,0.2)] hover:-translate-y-1 cursor-pointer">
+                    <div
+                        class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-q-primary/20 to-q-secondary/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-7 h-7 text-q-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="font-bold text-white mb-2 group-hover:text-q-secondary transition-colors uppercase">
+                        Agências de Marketing</h4>
+                    <p class="text-xs text-q-muted leading-relaxed">Organiza prospecção outbound em escala.</p>
+                </div>
+
+                <!-- Card Infoprodutores -->
+                <div
+                    class="group bg-q-surface border border-q-border p-6 rounded-xl text-center hover:border-q-primary transition-all duration-300 hover:shadow-[0_0_20px_rgba(124,58,237,0.2)] hover:-translate-y-1 cursor-pointer">
+                    <div
+                        class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-q-primary/20 to-q-secondary/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-7 h-7 text-q-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                            </path>
+                        </svg>
+                    </div>
+                    <h4 class="font-bold text-white mb-2 group-hover:text-q-secondary transition-colors uppercase">
+                        Infoprodutores</h4>
+                    <p class="text-xs text-q-muted leading-relaxed">Atendimento de suporte e recuperação de vendas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    <!-- Planos -->
+    <section id="planos" class="py-16 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl font-bold mb-4">Planos que cabem no seu bolso</h2>
+                <p class="text-q-muted">Escolha a potência ideal para a sua operação.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+
+                <!-- Starter -->
+                <div class="glass-card p-8 rounded-2xl relative flex flex-col h-full">
+                    <h3 class="text-xl font-bold text-white mb-2">Quantic Starter</h3>
+                    <p class="text-sm text-q-muted mb-6">Ideal para começar a automatizar seu atendimento.</p>
+                    <div class="mb-6">
+                        <span class="text-3xl font-bold">R$ 597</span><span class="text-q-muted">/mês +
+                            implementação</span>
+                    </div>
+                    <a href="agendar.html"
+                        class="block w-full text-center py-3 border border-q-border rounded-lg text-white hover:border-white transition-colors mb-8">Agendar
+                        Demonstração</a>
+                    <ul class="space-y-3 text-sm text-q-muted">
+                        <li class="flex items-center gap-3"><svg class="w-5 h-5 text-q-secondary flex-shrink-0"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg> IA WhatsApp</li>
+                        <li class="flex items-center gap-3"><svg class="w-5 h-5 text-q-secondary flex-shrink-0"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg> Integração Google Agenda</li>
+                        <li class="flex items-center gap-3"><svg class="w-5 h-5 text-q-secondary flex-shrink-0"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg> Respostas automáticas 24/7</li>
+                        <li class="flex items-center gap-3"><svg class="w-5 h-5 text-q-secondary flex-shrink-0"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg> Suporte por email</li>
+                    </ul>
+                </div>
+
+                <!-- Growth (Destaque) -->
+                <div
+                    class="bg-q-surface border-2 border-q-primary p-8 rounded-2xl relative shadow-[0_0_30px_rgba(124,58,237,0.15)] transform md:-translate-y-4 flex flex-col h-full">
+                    <div
+                        class="absolute -top-3 left-1/2 -translate-x-1/2 bg-q-primary text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-lg shadow-q-primary/20">
+                        Mais popular</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Quantic Growth</h3>
+                    <p class="text-sm text-q-muted mb-6">Para empresas que querem escalar a captação de leads.</p>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold text-white">R$ 1.297</span><span class="text-q-muted">/mês +
+                            implementação</span>
+                    </div>
+                    <a href="agendar.html"
+                        class="block w-full text-center py-3.5 bg-q-primary rounded-xl text-white hover:bg-q-primaryHover transition-all font-semibold mb-8 shadow-lg shadow-q-primary/25">Agendar
+                        Demonstração</a>
+                    <ul class="space-y-3 text-sm text-white">
+                        <li class="flex items-center gap-3"><svg class="w-5 h-5 text-q-secondary flex-shrink-0"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg> Tudo do Starter</li>
+                        <li class="flex items-center gap-3"><svg class="w-5 h-5 text-q-secondary flex-shrink-0"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg> Captação Google Maps</li>
+                        <li class="flex items-center gap-3"><svg class="w-5 h-5 text-q-secondary flex-shrink-0"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg> Captação Instagram</li>
+                        <li class="flex items-center gap-3"><svg class="w-5 h-5 text-q-secondary flex-shrink-0"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg> CRM</li>
+                        <li class="flex items-center gap-3"><svg class="w-5 h-5 text-q-secondary flex-shrink-0"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg> Qualificação automática</li>
+                        <li class="flex items-center gap-3"><svg class="w-5 h-5 text-q-secondary flex-shrink-0"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg> Suporte prioritário</li>
+                    </ul>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="glass-card p-8 rounded-2xl relative flex flex-col h-full">
+                    <h3 class="text-xl font-bold text-white mb-2">Quantic Enterprise</h3>
+                    <p class="text-sm text-q-muted mb-6">Solução completa para operações robustas.</p>
+                    <div class="mb-6">
+                        <span class="text-3xl font-bold">R$ 2.497</span><span class="text-q-muted">/mês +
+                            implementação</span>
+                    </div>
+                    <a href="https://wa.me/55SEUNUMERO"
+                        class="block w-full text-center py-3 border border-q-border rounded-lg text-white hover:bg-q-surface transition-colors mb-8">Falar
+                        com Especialista</a>
+                    <ul class="space-y-3 text-sm text-q-muted">
+                        <li class="flex items-center gap-3"><svg class="w-5 h-5 text-q-secondary flex-shrink-0"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg> Tudo do Growth</li>
+                        <li class="flex items-center gap-3"><svg class="w-5 h-5 text-q-secondary flex-shrink-0"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg> Automações avançadas</li>
+                        <li class="flex items-center gap-3"><svg class="w-5 h-5 text-q-secondary flex-shrink-0"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg> Dashboards personalizados</li>
+                        <li class="flex items-center gap-3"><svg class="w-5 h-5 text-q-secondary flex-shrink-0"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg> IA Prospect (prospecção ativa)</li>
+                        <li class="flex items-center gap-3"><svg class="w-5 h-5 text-q-secondary flex-shrink-0"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg> Omnichannel completo</li>
+                        <li class="flex items-center gap-3"><svg class="w-5 h-5 text-q-secondary flex-shrink-0"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg> Gerente de conta dedicado</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tabela Comparativa -->
+    <section class="py-24 bg-q-bg relative overflow-hidden">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <h2 class="font-display text-4xl md:text-5xl font-bold text-center mb-20 text-white">
+                Compare os <span class="text-q-secondary">planos</span>
+            </h2>
+
+            <div class="relative group">
+                <!-- Background Glow -->
+                <div
+                    class="absolute -inset-4 bg-q-primary/5 blur-3xl rounded-[3rem] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
+                </div>
+
+                <div class="overflow-x-auto relative glass-card rounded-2xl border border-white/5 shadow-2xl">
+                    <table class="w-full text-left border-collapse min-w-[800px]">
+                        <thead>
+                            <tr class="text-q-muted text-sm border-b border-white/5 bg-white/[0.02]">
+                                <th class="py-8 px-6 font-normal w-1/3">Recurso</th>
+                                <th class="py-8 px-6 text-center font-medium text-white w-1/6">Starter</th>
+                                <th class="py-8 px-6 text-center font-bold text-q-secondary w-1/6 bg-q-primary/5">
+                                    Growth
+                                </th>
+                                <th class="py-8 px-6 text-center font-medium text-white w-1/6">Enterprise</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                            <!-- Content remains same -->
+                            <tr class="border-t border-white/5 hover:bg-white/[0.01] transition-colors">
+                                <td class="py-6 px-6 text-white font-medium">WhatsApp IA</td>
+                                <td class="py-6 px-4 text-center">
+                                    <svg class="w-6 h-6 mx-auto text-q-secondary" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </td>
+                                <td class="py-6 px-4 text-center bg-q-primary/5">
+                                    <svg class="w-6 h-6 mx-auto text-q-secondary" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </td>
+                                <td class="py-6 px-4 text-center">
+                                    <svg class="w-6 h-6 mx-auto text-q-secondary" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </td>
+                            </tr>
+                            <!-- ... other rows ... -->
+                            <tr class="border-t border-white/5 hover:bg-white/[0.01] transition-colors">
+                                <td class="py-6 px-6 text-white font-medium">Google Agenda</td>
+                                <td class="py-6 px-4 text-center">
+                                    <svg class="w-6 h-6 mx-auto text-q-secondary" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </td>
+                                <td class="py-6 px-4 text-center bg-q-primary/5">
+                                    <svg class="w-6 h-6 mx-auto text-q-secondary" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </td>
+                                <td class="py-6 px-4 text-center">
+                                    <svg class="w-6 h-6 mx-auto text-q-secondary" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </td>
+                            </tr>
+                            <tr class="border-t border-white/5 hover:bg-white/[0.01] transition-colors">
+                                <td class="py-6 px-6 text-white font-medium">Captação Google Maps</td>
+                                <td class="py-6 px-4 text-center text-q-muted/30 font-light">—</td>
+                                <td class="py-6 px-4 text-center bg-q-primary/5">
+                                    <svg class="w-6 h-6 mx-auto text-q-secondary" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </td>
+                                <td class="py-6 px-4 text-center">
+                                    <svg class="w-6 h-6 mx-auto text-q-secondary" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </td>
+                            </tr>
+                            <tr class="border-t border-white/5 hover:bg-white/[0.01] transition-colors">
+                                <td class="py-6 px-6 text-white font-medium">Captação Instagram</td>
+                                <td class="py-6 px-4 text-center text-q-muted/30 font-light">—</td>
+                                <td class="py-6 px-4 text-center bg-q-primary/5">
+                                    <svg class="w-6 h-6 mx-auto text-q-secondary" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </td>
+                                <td class="py-6 px-4 text-center">
+                                    <svg class="w-6 h-6 mx-auto text-q-secondary" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </td>
+                            </tr>
+                            <tr class="border-t border-white/5 hover:bg-white/[0.01] transition-colors">
+                                <td class="py-6 px-6 text-white font-medium">CRM</td>
+                                <td class="py-6 px-4 text-center text-q-muted/30 font-light">—</td>
+                                <td class="py-6 px-4 text-center bg-q-primary/5">
+                                    <svg class="w-6 h-6 mx-auto text-q-secondary" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </td>
+                                <td class="py-6 px-4 text-center">
+                                    <svg class="w-6 h-6 mx-auto text-q-secondary" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </td>
+                            </tr>
+                            <tr class="border-t border-white/5 hover:bg-white/[0.01] transition-colors">
+                                <td class="py-6 px-6 text-white font-medium">Automações Avançadas</td>
+                                <td class="py-6 px-4 text-center text-q-muted/30 font-light">—</td>
+                                <td class="py-6 px-4 text-center bg-q-primary/5 text-q-muted/30 font-light">—</td>
+                                <td class="py-6 px-4 text-center">
+                                    <svg class="w-6 h-6 mx-auto text-q-secondary" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </td>
+                            </tr>
+                            <tr class="border-t border-white/5 hover:bg-white/[0.01] transition-colors">
+                                <td class="py-6 px-6 text-white font-medium">Dashboards</td>
+                                <td class="py-6 px-4 text-center text-q-muted/30 font-light">—</td>
+                                <td class="py-6 px-4 text-center bg-q-primary/5 text-q-muted/30 font-light">—</td>
+                                <td class="py-6 px-4 text-center">
+                                    <svg class="w-6 h-6 mx-auto text-q-secondary" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </td>
+                            </tr>
+                            <tr class="border-t border-white/5 hover:bg-white/[0.01] transition-colors">
+                                <td class="py-6 px-6 text-white font-medium">IA Prospect</td>
+                                <td class="py-6 px-4 text-center text-q-muted/30 font-light">—</td>
+                                <td class="py-6 px-4 text-center bg-q-primary/5 text-q-muted/30 font-light">—</td>
+                                <td class="py-6 px-4 text-center">
+                                    <svg class="w-6 h-6 mx-auto text-q-secondary" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </td>
+                            </tr>
+                            <tr class="border-t border-white/5 hover:bg-white/[0.01] transition-colors">
+                                <td class="py-6 px-6 text-white font-medium">Omnichannel</td>
+                                <td class="py-6 px-4 text-center text-q-muted/30 font-light">—</td>
+                                <td class="py-6 px-4 text-center bg-q-primary/5 text-q-muted/30 font-light">—</td>
+                                <td class="py-6 px-4 text-center">
+                                    <svg class="w-6 h-6 mx-auto text-q-secondary" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </td>
+                            </tr>
+                            <tr class="border-t border-white/5 hover:bg-white/[0.01] transition-colors">
+                                <td class="py-6 px-6 text-white font-medium">Suporte</td>
+                                <td class="py-6 px-4 text-center text-q-muted">Email</td>
+                                <td class="py-6 px-4 text-center bg-q-primary/5 text-white font-medium">Prioritário</td>
+                                <td class="py-6 px-4 text-center text-white">Dedicado</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prova Social -->
+    <section class="py-16 bg-q-surface/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="p-6">
+                    <div class="flex items-center space-x-1 mb-4">
+                        <span class="text-yellow-500">★★★★★</span>
+                    </div>
+                    <p class="text-lg text-white mb-4">"Reduzimos nosso tempo de triagem em 80%. A equipe agora
+                        só fala
+                        com quem realmente quer fechar."</p>
+                    <p class="text-sm font-bold text-q-muted">— Gerente Comercial</p>
+                </div>
+                <!-- Metric -->
+                <div class="p-6 border-l border-q-border md:text-center flex flex-col justify-center">
+                    <span class="text-4xl font-bold text-q-secondary block mb-2">+150%</span>
+                    <span class="text-q-muted">Aumento na recuperação de leads perdidos.</span>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="p-6">
+                    <div class="flex items-center space-x-1 mb-4">
+                        <span class="text-yellow-500">★★★★★</span>
+                    </div>
+                    <p class="text-lg text-white mb-4">"A organização no CRM mudou o jogo. Sabemos exatamente
+                        onde cada
+                        negociação está."</p>
+                    <p class="text-sm font-bold text-q-muted">— Dono de Agência</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-16 relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="font-display text-3xl font-bold text-center mb-12">Perguntas Frequentes</h2>
+        <div class="space-y-4">
+
+            <details
+                class="group bg-q-surface border border-q-border rounded-lg overflow-hidden transition-all duration-300">
+                <summary
+                    class="flex justify-between items-center cursor-pointer p-5 font-medium text-white group-hover:bg-white/5 transition-colors list-none">
+                    <span>Quanto tempo para implementar?</span>
+                    <span class="transition-transform group-open:rotate-180">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </span>
+                </summary>
+                <div class="text-q-muted text-sm p-5 pt-0 leading-relaxed">
+                    Nossa implementação padrão leva 14 dias, garantindo que todo o sistema esteja
+                    perfeitamente configurado e integrado ao seu negócio.
+                </div>
+            </details>
+
+            <details
+                class="group bg-q-surface border border-q-border rounded-lg overflow-hidden transition-all duration-300">
+                <summary
+                    class="flex justify-between items-center cursor-pointer p-5 font-medium text-white group-hover:bg-white/5 transition-colors list-none">
+                    <span>Preciso ter conta no CRM?</span>
+                    <span class="transition-transform group-open:rotate-180">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </span>
+                </summary>
+                <div class="text-q-muted text-sm p-5 pt-0 leading-relaxed">
+                    Sim, a Quantic é especializada em integrações com o CRM. Caso não tenha, nós ajudamos você
+                    a criar
+                    e configurar sua conta.
+                </div>
+            </details>
+
+            <details
+                class="group bg-q-surface border border-q-border rounded-lg overflow-hidden transition-all duration-300">
+                <summary
+                    class="flex justify-between items-center cursor-pointer p-5 font-medium text-white group-hover:bg-white/5 transition-colors list-none">
+                    <span>Vocês fazem a venda por mim?</span>
+                    <span class="transition-transform group-open:rotate-180">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </span>
+                </summary>
+                <div class="text-q-muted text-sm p-5 pt-0 leading-relaxed">
+                    A IA faz a triagem, qualificação e agendamento (SDR). O fechamento final (venda) é feito
+                    pelo seu
+                    time humano com leads já qualificados.
+                </div>
+            </details>
+
+
+        </div>
+    </section>
+
+    <!-- Footer CTA -->
+    <section class="py-16 bg-gradient-to-b from-q-bg to-q-surface text-center">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="font-display text-4xl md:text-5xl font-bold mb-8">Pronto para automatizar sua <br />
+                <span class="text-q-secondary">máquina de vendas?</span>
+            </h2>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="agendar.html"
+                    class="w-full sm:w-auto px-8 py-4 text-white bg-q-primary rounded-xl font-semibold hover:bg-q-primaryHover transition-all shadow-lg shadow-q-primary/30 text-lg">
+                    Agendar Demonstração
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-q-border/50 py-12 text-sm text-q-muted">
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex flex-col items-center md:items-start">
+                <img src="logo.png" alt="QUANTIC" class="h-6 mb-2">
+                <p>Automação inteligente para empresas digitais.</p>
+            </div>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-white transition-colors">Termos de Uso</a>
+                <a href="#" class="hover:text-white transition-colors">Privacidade</a>
+                <a href="mailto:contato@quantic.com" class="hover:text-white transition-colors">Contato</a>
+            </div>
+            <div class="text-xs opacity-50">
+                &copy; 2024 Quantic. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close menu when clicking a link
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Neural Network Animation Refactored for multiple instances
+        class NeuralBackground {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.ctx = canvas.getContext('2d');
+                this.particles = [];
+                this.animationFrameId = null;
+                this.particleCount = canvas.id === 'neuralNetwork' ? 80 : 60;
+
+                this.init();
+                this.animate();
+
+                window.addEventListener('resize', () => this.resizeCanvas());
+            }
+
+            resizeCanvas() {
+                this.canvas.width = this.canvas.offsetWidth;
+                this.canvas.height = this.canvas.offsetHeight;
+            }
+
+            init() {
+                this.resizeCanvas();
+                this.particles = [];
+                for (let i = 0; i < this.particleCount; i++) {
+                    this.particles.push({
+                        x: Math.random() * this.canvas.width,
+                        y: Math.random() * this.canvas.height,
+                        vx: (Math.random() - 0.5) * 0.5,
+                        vy: (Math.random() - 0.5) * 0.5,
+                        radius: Math.random() * 2 + 1
+                    });
+                }
+            }
+
+            drawParticle(p) {
+                this.ctx.beginPath();
+                this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                this.ctx.fillStyle = 'rgba(168, 85, 247, 0.6)';
+                this.ctx.fill();
+            }
+
+            updateParticle(p) {
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0 || p.x > this.canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > this.canvas.height) p.vy *= -1;
+            }
+
+            connectParticles() {
+                for (let i = 0; i < this.particles.length; i++) {
+                    for (let j = i + 1; j < this.particles.length; j++) {
+                        const dx = this.particles[i].x - this.particles[j].x;
+                        const dy = this.particles[i].y - this.particles[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < 150) {
+                            this.ctx.beginPath();
+                            this.ctx.strokeStyle = `rgba(124, 58, 237, ${0.2 * (1 - distance / 150)})`;
+                            this.ctx.lineWidth = 1;
+                            this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
+                            this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
+                            this.ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            animate() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+                this.particles.forEach(p => {
+                    this.updateParticle(p);
+                    this.drawParticle(p);
+                });
+
+                this.connectParticles();
+                this.animationFrameId = requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        // Initialize all neural backgrounds
+        function initNeuralBackgrounds() {
+            const canvases = document.querySelectorAll('.neural-canvas');
+            canvases.forEach(canvas => {
+                new NeuralBackground(canvas);
+            });
+        }
+
+        // Typing Effect Logic
+        function initTyping() {
+            const headline = document.getElementById('typing-headline');
+            const textContent = [
+                { text: "Captação", class: "text-transparent bg-clip-text bg-purple-gradient glow-text" },
+                { text: " + ", class: "" },
+                { text: "Atendimento", class: "text-transparent bg-clip-text bg-purple-gradient glow-text" },
+                { text: " + ", class: "" },
+                { text: "Qualificação", class: "text-transparent bg-clip-text bg-purple-gradient glow-text" }
+            ];
+
+            let segmentIndex = 0;
+            let charIndex = 0;
+            let currentContainer = null;
+
+            function type() {
+                if (segmentIndex < textContent.length) {
+                    const segment = textContent[segmentIndex];
+
+                    if (charIndex === 0) {
+                        currentContainer = document.createElement('span');
+                        if (segment.class) segment.class.split(' ').forEach(c => currentContainer.classList.add(c));
+                        headline.appendChild(currentContainer);
+                        // Add spacing for + symbols if needed
+                        if (segment.text === " + ") {
+                            currentContainer.classList.add('px-2');
+                        }
+                    }
+
+                    if (charIndex < segment.text.length) {
+                        currentContainer.textContent += segment.text.charAt(charIndex);
+                        charIndex++;
+                        setTimeout(type, 50 + Math.random() * 50); // Natural typing speed
+                    } else {
+                        segmentIndex++;
+                        charIndex = 0;
+                        setTimeout(type, 200); // Pause between segments
+                    }
+                } else {
+                    // Start sub-headline animation after title is done
+                    headline.classList.remove('cursor');
+                }
+            }
+
+            // Start typing after a short delay
+            setTimeout(type, 500);
+        }
+
+        // Intersection Observer for Reveal Animations
+        function initScrollReveal() {
+            const observerOptions = {
+                root: null,
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Chat Animation Logic
+        function initChatAnimation() {
+            const messages = document.querySelectorAll('#hero-chat-messages .message');
+            const indicator = document.getElementById('typing-indicator');
+            let index = 0;
+
+            function showNextMessage() {
+                if (index < messages.length) {
+                    const isAI = messages[index].classList.contains('self-end');
+
+                    if (isAI) {
+                        indicator.classList.remove('hidden');
+                        indicator.classList.add('flex');
+
+                        setTimeout(() => {
+                            indicator.classList.add('hidden');
+                            indicator.classList.remove('flex');
+                            messages[index].classList.add('active');
+                            index++;
+                            setTimeout(showNextMessage, 800);
+                        }, 1200);
+                    } else {
+                        setTimeout(() => {
+                            messages[index].classList.add('active');
+                            index++;
+                            setTimeout(showNextMessage, 600);
+                        }, 400);
+                    }
+                } else {
+                    // Loop animation
+                    setTimeout(() => {
+                        messages.forEach(m => m.classList.remove('active'));
+                        index = 0;
+                        showNextMessage();
+                    }, 3000);
+                }
+            }
+
+            setTimeout(showNextMessage, 1000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initTyping();
+            initScrollReveal();
+            initNeuralBackgrounds();
+            initChatAnimation();
+        });
+    </script>
+</body>
+
+</html>

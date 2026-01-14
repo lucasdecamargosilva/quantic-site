@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar Demonstração | Quantic Solutions</title>
+    <meta name="description"
+        content="Agende sua demonstração e descubra como a IA da Quantic pode transformar seu negócio.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        q: {
+                            bg: '#0B0B10',
+                            surface: '#12121A',
+                            primary: '#7C3AED',
+                            primaryHover: '#6D28D9',
+                            secondary: '#A855F7',
+                            border: '#232336',
+                            text: '#FFFFFF',
+                            muted: '#B9B9C6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-glow': 'radial-gradient(circle at center, rgba(124, 58, 237, 0.15) 0%, rgba(11, 11, 16, 0) 70%)',
+                        'purple-gradient': 'linear-gradient(135deg, #7C3AED 0%, #A855F7 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0B0B10;
+            color: #FFFFFF;
+            overflow: hidden;
+        }
+
+        .glass {
+            background: rgba(18, 18, 26, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(35, 35, 54, 0.5);
+        }
+
+        .step-container {
+            display: none;
+        }
+
+        .step-container.active {
+            display: flex;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: rgba(124, 58, 237, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+        }
+
+        #progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #7C3AED, #A855F7);
+            width: 0%;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .option-button {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(35, 35, 54, 1);
+            background: rgba(18, 18, 26, 0.4);
+        }
+
+        .option-button:hover {
+            border-color: #7C3AED;
+            background: rgba(124, 58, 237, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .option-button.selected {
+            border-color: #7C3AED;
+            background: rgba(124, 58, 237, 0.2);
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.15);
+        }
+
+        input[type="text"] {
+            background: transparent;
+            border-bottom: 2px solid #232336;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #7C3AED;
+            outline: none;
+        }
+
+        /* Neural Background */
+        .neural-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased min-h-screen flex items-center justify-center p-4">
+
+    <canvas id="neural-bg" class="neural-canvas"></canvas>
+
+    <div class="progress-bar">
+        <div id="progress-fill"></div>
+    </div>
+
+    <!-- Back Button -->
+    <a href="index.html"
+        class="fixed top-8 left-8 text-q-muted hover:text-white transition-colors flex items-center gap-2 text-sm font-medium z-50">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18">
+            </path>
+        </svg>
+        Voltar para o site
+    </a>
+
+    <div class="max-w-2xl w-full">
+        <!-- Step 1: Nome Completo (NEW) -->
+        <div class="step-container flex-col active" data-step="1">
+            <span class="text-q-primary font-bold tracking-widest uppercase text-xs mb-4">Pergunta 01</span>
+            <h1 class="font-display text-3xl md:text-4xl font-bold mb-8 leading-tight">Qual o seu nome completo?</h1>
+            <input type="text" id="name-input" placeholder="Seu nome aqui..."
+                class="w-full text-2xl md:text-3xl font-medium py-4 mb-12 placeholder:text-q-muted/30">
+            <button onclick="nextStep()"
+                class="self-start px-8 py-4 bg-q-primary hover:bg-q-primaryHover text-white rounded-xl font-semibold transition-all shadow-lg shadow-q-primary/20">Continuar</button>
+        </div>
+
+        <!-- Step 2: Telefone (NEW) -->
+        <div class="step-container flex-col" data-step="2">
+            <span class="text-q-primary font-bold tracking-widest uppercase text-xs mb-4">Pergunta 02</span>
+            <h2 class="font-display text-3xl md:text-4xl font-bold mb-8 leading-tight">Qual o seu WhatsApp?</h2>
+            <input type="text" id="phone-input" placeholder="(00) 00000-0000" maxlength="15" oninput="maskPhone(this)"
+                class="w-full text-2xl md:text-3xl font-medium py-4 mb-12 placeholder:text-q-muted/30">
+            <div class="flex gap-4">
+                <button onclick="prevStep()"
+                    class="px-8 py-4 border border-q-border text-q-muted rounded-xl font-semibold hover:border-white hover:text-white transition-all">Voltar</button>
+                <button onclick="nextStep()"
+                    class="px-8 py-4 bg-q-primary hover:bg-q-primaryHover text-white rounded-xl font-semibold transition-all">Continuar</button>
+            </div>
+        </div>
+
+        <!-- Step 3: E-mail (NEW) -->
+        <div class="step-container flex-col" data-step="3">
+            <span class="text-q-primary font-bold tracking-widest uppercase text-xs mb-4">Pergunta 03</span>
+            <h2 class="font-display text-3xl md:text-4xl font-bold mb-8 leading-tight">E o seu melhor e-mail?</h2>
+            <input type="email" id="email-input" placeholder="seu@email.com"
+                class="w-full text-2xl md:text-3xl font-medium py-4 mb-12 placeholder:text-q-muted/30 bg-transparent border-bottom-2 border-q-border focus:border-q-primary outline-none">
+            <div class="flex gap-4">
+                <button onclick="prevStep()"
+                    class="px-8 py-4 border border-q-border text-q-muted rounded-xl font-semibold hover:border-white hover:text-white transition-all">Voltar</button>
+                <button onclick="nextStep()"
+                    class="px-8 py-4 bg-q-primary hover:bg-q-primaryHover text-white rounded-xl font-semibold transition-all">Continuar</button>
+            </div>
+        </div>
+
+        <!-- Step 4: Nome do Negócio (NEW) -->
+        <div class="step-container flex-col" data-step="4">
+            <span class="text-q-primary font-bold tracking-widest uppercase text-xs mb-4">Pergunta 04</span>
+            <h2 class="font-display text-3xl md:text-4xl font-bold mb-8 leading-tight">Qual o nome do seu negócio?</h2>
+            <input type="text" id="business-name-input" placeholder="Nome da sua empresa..."
+                class="w-full text-2xl md:text-3xl font-medium py-4 mb-12 placeholder:text-q-muted/30">
+            <div class="flex gap-4">
+                <button onclick="prevStep()"
+                    class="px-8 py-4 border border-q-border text-q-muted rounded-xl font-semibold hover:border-white hover:text-white transition-all">Voltar</button>
+                <button onclick="nextStep()"
+                    class="px-8 py-4 bg-q-primary hover:bg-q-primaryHover text-white rounded-xl font-semibold transition-all">Continuar</button>
+            </div>
+        </div>
+
+        <!-- Step 5: Faixa de Faturamento Mensal (NEW) -->
+        <div class="step-container flex-col" data-step="5">
+            <span class="text-q-primary font-bold tracking-widest uppercase text-xs mb-4">Pergunta 05</span>
+            <h2 class="font-display text-3xl md:text-4xl font-bold mb-8 leading-tight">Qual a sua faixa de faturamento
+                mensal?</h2>
+            <div class="grid grid-cols-1 gap-4 mb-8">
+                <button onclick="selectOption('revenue', 'R$2.000 a 5.000', this)"
+                    class="option-button p-4 rounded-xl text-left font-medium">R$2.000 a 5.000</button>
+                <button onclick="selectOption('revenue', 'R$5.000 a R$10.000', this)"
+                    class="option-button p-4 rounded-xl text-left font-medium">R$5.000 a R$10.000</button>
+                <button onclick="selectOption('revenue', 'R$10.000 ou mais', this)"
+                    class="option-button p-4 rounded-xl text-left font-medium">R$10.000 ou mais</button>
+            </div>
+            <div class="flex gap-4">
+                <button onclick="prevStep()"
+                    class="px-8 py-4 border border-q-border text-q-muted rounded-xl font-semibold hover:border-white hover:text-white transition-all">Voltar</button>
+                <button onclick="nextStep()"
+                    class="px-8 py-4 bg-q-primary hover:bg-q-primaryHover text-white rounded-xl font-semibold transition-all">Continuar</button>
+            </div>
+        </div>
+
+        <!-- Step 6: Business Type (Original Q1) -->
+        <div class="step-container flex-col" data-step="6">
+            <span class="text-q-primary font-bold tracking-widest uppercase text-xs mb-4">Pergunta 06</span>
+            <h1 class="font-display text-3xl md:text-4xl font-bold mb-8 leading-tight">Qual é o seu nicho de atuação?
+            </h1>
+            <input type="text" id="business-input" placeholder="Ex: Imobiliária, Agência de Marketing..."
+                class="w-full text-2xl md:text-3xl font-medium py-4 mb-12 placeholder:text-q-muted/30">
+            <div class="flex gap-4">
+                <button onclick="prevStep()"
+                    class="px-8 py-4 border border-q-border text-q-muted rounded-xl font-semibold hover:border-white hover:text-white transition-all">Voltar</button>
+                <button onclick="nextStep()"
+                    class="px-8 py-4 bg-q-primary hover:bg-q-primaryHover text-white rounded-xl font-semibold transition-all">Continuar</button>
+            </div>
+        </div>
+
+        <!-- Step 7: B2B/B2C (Original Q2) -->
+        <div class="step-container flex-col" data-step="7">
+            <span class="text-q-primary font-bold tracking-widest uppercase text-xs mb-4">Pergunta 07</span>
+            <h2 class="font-display text-3xl md:text-4xl font-bold mb-8 leading-tight">Você atende mais B2C ou B2B?</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                <button onclick="selectOption('audience', 'B2C', this)" class="option-button p-6 rounded-2xl text-left">
+                    <span class="block text-xl font-bold mb-1">B2C</span>
+                    <span class="text-sm text-q-muted">Foco em consumidor final</span>
+                </button>
+                <button onclick="selectOption('audience', 'B2B', this)" class="option-button p-6 rounded-2xl text-left">
+                    <span class="block text-xl font-bold mb-1">B2B</span>
+                    <span class="text-sm text-q-muted">Foco em outras empresas</span>
+                </button>
+                <button onclick="selectOption('audience', 'Ambos', this)"
+                    class="option-button p-6 rounded-2xl text-left sm:col-span-2">
+                    <span class="block text-xl font-bold mb-1">Ambos</span>
+                    <span class="text-sm text-q-muted">Atendo empresas e pessoas físicas</span>
+                </button>
+            </div>
+            <div class="flex gap-4">
+                <button onclick="prevStep()"
+                    class="px-8 py-4 border border-q-border text-q-muted rounded-xl font-semibold hover:border-white hover:text-white transition-all">Voltar</button>
+                <button onclick="nextStep()"
+                    class="px-8 py-4 bg-q-primary hover:bg-q-primaryHover text-white rounded-xl font-semibold transition-all">Continuar</button>
+            </div>
+        </div>
+
+        <!-- Step 8: Canais (Original Q3) -->
+        <div class="step-container flex-col" data-step="8">
+            <span class="text-q-primary font-bold tracking-widest uppercase text-xs mb-4">Pergunta 08</span>
+            <h2 class="font-display text-3xl md:text-4xl font-bold mb-8 leading-tight">Por quais canais chegam mais
+                contatos?</h2>
+            <p class="text-q-muted text-sm mb-6 -mt-4">(Você pode selecionar mais de uma opção)</p>
+            <div class="grid grid-cols-2 gap-4 mb-8">
+                <button onclick="toggleMultiOption('channels', 'WhatsApp', this)"
+                    class="option-button p-4 rounded-xl text-center font-medium">WhatsApp</button>
+                <button onclick="toggleMultiOption('channels', 'Instagram', this)"
+                    class="option-button p-4 rounded-xl text-center font-medium">Instagram</button>
+                <button onclick="toggleMultiOption('channels', 'Site', this)"
+                    class="option-button p-4 rounded-xl text-center font-medium">Site</button>
+                <button onclick="toggleMultiOption('channels', 'Telefone', this)"
+                    class="option-button p-4 rounded-xl text-center font-medium">Telefone</button>
+                <button onclick="toggleMultiOption('channels', 'Outros', this)"
+                    class="option-button p-4 rounded-xl text-center font-medium col-span-2">Outros</button>
+            </div>
+            <div class="flex gap-4">
+                <button onclick="prevStep()"
+                    class="px-8 py-4 border border-q-border text-q-muted rounded-xl font-semibold hover:border-white hover:text-white transition-all">Voltar</button>
+                <button onclick="nextStep()"
+                    class="px-8 py-4 bg-q-primary hover:bg-q-primaryHover text-white rounded-xl font-semibold transition-all">Continuar</button>
+            </div>
+        </div>
+
+        <!-- Step 9: Volume (Original Q4) -->
+        <div class="step-container flex-col" data-step="9">
+            <span class="text-q-primary font-bold tracking-widest uppercase text-xs mb-4">Pergunta 09</span>
+            <h2 class="font-display text-3xl md:text-4xl font-bold mb-8 leading-tight">Qual o seu volume de clientes
+                semanal?</h2>
+            <div class="grid grid-cols-1 gap-4 mb-8">
+                <button onclick="selectOption('volume', 'Até 10', this)"
+                    class="option-button p-4 rounded-xl text-left font-medium">Até 10 clientes</button>
+                <button onclick="selectOption('volume', '10 a 50', this)"
+                    class="option-button p-4 rounded-xl text-left font-medium">10 a 50 clientes</button>
+                <button onclick="selectOption('volume', '50 a 100', this)"
+                    class="option-button p-4 rounded-xl text-left font-medium">50 a 100 clientes</button>
+                <button onclick="selectOption('volume', 'Mais de 100', this)"
+                    class="option-button p-4 rounded-xl text-left font-medium">Mais de 100 clientes</button>
+            </div>
+            <div class="flex gap-4">
+                <button onclick="prevStep()"
+                    class="px-8 py-4 border border-q-border text-q-muted rounded-xl font-semibold hover:border-white hover:text-white transition-all">Voltar</button>
+                <button onclick="nextStep()"
+                    class="px-8 py-4 bg-q-primary hover:bg-q-primaryHover text-white rounded-xl font-semibold transition-all">Continuar</button>
+            </div>
+        </div>
+
+        <!-- Step 10: Gargalo (Original Q6) -->
+        <div class="step-container flex-col" data-step="10">
+            <span class="text-q-primary font-bold tracking-widest uppercase text-xs mb-4">Pergunta 10</span>
+            <h2 class="font-display text-3xl md:text-4xl font-bold mb-8 leading-tight">O que mais atrapalha sua operação
+                hoje?</h2>
+            <p class="text-q-muted text-sm mb-6 -mt-4">(Você pode selecionar mais de uma opção)</p>
+            <div class="grid grid-cols-1 gap-3 mb-8">
+                <button onclick="toggleMultiOption('bottleneck', 'Responder rápido', this)"
+                    class="option-button p-4 rounded-xl text-left font-medium">Responder rápido</button>
+                <button onclick="toggleMultiOption('bottleneck', 'Organizar leads', this)"
+                    class="option-button p-4 rounded-xl text-left font-medium">Organizar leads</button>
+                <button onclick="toggleMultiOption('bottleneck', 'Fazer follow-up', this)"
+                    class="option-button p-4 rounded-xl text-left font-medium">Fazer follow-up</button>
+                <button onclick="toggleMultiOption('bottleneck', 'Agendar', this)"
+                    class="option-button p-4 rounded-xl text-left font-medium">Agendar</button>
+                <button onclick="toggleMultiOption('bottleneck', 'Vender', this)"
+                    class="option-button p-4 rounded-xl text-left font-medium">Vender</button>
+            </div>
+            <div class="flex gap-4">
+                <button onclick="prevStep()"
+                    class="px-8 py-4 border border-q-border text-q-muted rounded-xl font-semibold hover:border-white hover:text-white transition-all">Voltar</button>
+                <button onclick="submitForm()" id="submit-btn"
+                    class="px-8 py-4 bg-purple-gradient hover:opacity-90 text-white rounded-xl font-bold transition-all flex items-center gap-2">
+                    Finalizar e Agendar
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading / Success Screen -->
+        <div class="step-container flex-col text-center" id="status-screen">
+            <div id="loading-spinner" class="mb-8">
+                <div class="w-16 h-16 border-4 border-q-primary border-t-transparent rounded-full animate-spin mx-auto">
+                </div>
+                <p class="mt-6 text-xl font-medium">Enviando seus dados...</p>
+            </div>
+            <div id="success-message" class="hidden">
+                <div
+                    class="w-20 h-20 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto mb-8">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h2 class="text-3xl font-bold mb-4">Dados recebidos com sucesso!</h2>
+                <p class="text-q-muted text-lg mb-12">Nossa equipe entrará em contato em breve para realizar a
+                    demonstração.</p>
+                <a href="index.html"
+                    class="px-8 py-4 bg-q-surface border border-q-border hover:border-white text-white rounded-xl font-semibold transition-all">
+                    Voltar para o início
+                </a>
+            </div>
+            <div id="error-message" class="hidden text-red-400">
+                <h2 class="text-2xl font-bold mb-4">Ops! Algo deu errado.</h2>
+                <p class="mb-8">Não conseguimos enviar seus dados. Por favor, tente novamente.</p>
+                <button onclick="window.location.reload()"
+                    class="px-8 py-4 bg-q-primary text-white rounded-xl font-semibold">Tentar novamente</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 10;
+        const formData = {
+            fullName: '',
+            phone: '',
+            email: '',
+            businessName: '',
+            revenue: '',
+            business: '',
+            audience: '',
+            channels: [],
+            volume: '',
+            bottleneck: []
+        };
+
+        function updateProgress() {
+            const fill = document.getElementById('progress-fill');
+            const percentage = (currentStep / totalSteps) * 100;
+            fill.style.width = `${percentage}%`;
+        }
+
+        function maskPhone(input) {
+            let value = input.value.replace(/\D/g, "");
+            if (value.length > 11) value = value.slice(0, 11);
+
+            if (value.length > 10) {
+                input.value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, "($1) $2-$3");
+            } else if (value.length > 6) {
+                input.value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, "($1) $2-$3");
+            } else if (value.length > 2) {
+                input.value = value.replace(/^(\d{2})(\d{0,5}).*/, "($1) $2");
+            } else {
+                input.value = value.replace(/^(\d*)/, "($1");
+            }
+        }
+
+        function nextStep() {
+            // Validation
+            if (currentStep === 1) {
+                formData.fullName = document.getElementById('name-input').value;
+                if (!formData.fullName) return alert('Por favor, preencha seu nome.');
+            }
+            if (currentStep === 2) {
+                formData.phone = document.getElementById('phone-input').value;
+                if (formData.phone.replace(/\D/g, "").length < 10) return alert('Por favor, insira um WhatsApp válido com DDD.');
+            }
+            if (currentStep === 3) {
+                formData.email = document.getElementById('email-input').value;
+                if (!formData.email) return alert('Por favor, preencha seu e-mail.');
+                if (!formData.email.includes('@')) return alert('Por favor, insira um e-mail válido.');
+            }
+            if (currentStep === 4) {
+                formData.businessName = document.getElementById('business-name-input').value;
+                if (!formData.businessName) return alert('Por favor, preencha o nome do seu negócio.');
+            }
+            if (currentStep === 5 && !formData.revenue) return alert('Por favor, selecione sua faixa de faturamento.');
+            if (currentStep === 6) {
+                formData.business = document.getElementById('business-input').value;
+                if (!formData.business) return alert('Por favor, preencha seu nicho.');
+            }
+            if (currentStep === 7 && !formData.audience) return alert('Por favor, selecione uma opção.');
+            if (currentStep === 8 && formData.channels.length === 0) return alert('Selecione pelo menos um canal.');
+            if (currentStep === 9 && !formData.volume) return alert('Selecione seu volume semanal.');
+
+            if (currentStep < totalSteps) {
+                document.querySelector(`[data-step="${currentStep}"]`).classList.remove('active');
+                currentStep++;
+                document.querySelector(`[data-step="${currentStep}"]`).classList.add('active');
+                updateProgress();
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                document.querySelector(`[data-step="${currentStep}"]`).classList.remove('active');
+                currentStep--;
+                document.querySelector(`[data-step="${currentStep}"]`).classList.add('active');
+                updateProgress();
+            }
+        }
+
+        function selectOption(field, value, btn) {
+            formData[field] = value;
+
+            // UI update
+            const buttons = btn.parentElement.querySelectorAll('.option-button');
+            buttons.forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+
+            // Auto-advance for single selection steps that aren't the last one
+            if (field !== 'bottleneck') {
+                setTimeout(nextStep, 300);
+            }
+        }
+
+        function toggleMultiOption(field, value, btn) {
+            const index = formData[field].indexOf(value);
+            if (index > -1) {
+                formData[field].splice(index, 1);
+                btn.classList.remove('selected');
+            } else {
+                formData[field].push(value);
+                btn.classList.add('selected');
+            }
+        }
+
+        async function submitForm() {
+            if (formData.bottleneck.length === 0) return alert('Selecione pelo menos um gargalo.');
+
+            // Hide current step
+            document.querySelector(`[data-step="${totalSteps}"]`).classList.remove('active');
+            const statusScreen = document.getElementById('status-screen');
+            statusScreen.classList.add('active');
+
+            try {
+                // Tenta via FETCH com "no-cors" para contornar problemas locais de origin: null
+                await fetch('https://n8n.segredosdodrop.com/webhook/forms-site-quantic', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        timestamp: new Date().toISOString(),
+                        ...formData,
+                        channels: formData.channels.join(', '),
+                        bottleneck: formData.bottleneck.join(', ')
+                    })
+                });
+
+                // Como usamos no-cors, assumimos sucesso no envio
+                document.getElementById('loading-spinner').classList.add('hidden');
+                document.getElementById('success-message').classList.remove('hidden');
+
+            } catch (error) {
+                console.error('Erro no envio:', error);
+                document.getElementById('loading-spinner').classList.add('hidden');
+                document.getElementById('error-message').classList.remove('hidden');
+            }
+        }
+
+        // Neural Background Animation
+        class NeuralBackground {
+            constructor() {
+                this.canvas = document.getElementById('neural-bg');
+                this.ctx = this.canvas.getContext('2d');
+                this.particles = [];
+                this.resize();
+                this.init();
+                this.animate();
+                window.addEventListener('resize', () => this.resize());
+            }
+
+            resize() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
+
+            init() {
+                for (let i = 0; i < 60; i++) {
+                    this.particles.push({
+                        x: Math.random() * this.canvas.width,
+                        y: Math.random() * this.canvas.height,
+                        vx: (Math.random() - 0.5) * 0.4,
+                        vy: (Math.random() - 0.5) * 0.4,
+                        radius: Math.random() * 2 + 1
+                    });
+                }
+            }
+
+            animate() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0 || p.x > this.canvas.width) p.vx *= -1;
+                    if (p.y < 0 || p.y > this.canvas.height) p.vy *= -1;
+                    this.ctx.beginPath();
+                    this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    this.ctx.fillStyle = 'rgba(124, 58, 237, 0.4)';
+                    this.ctx.fill();
+                });
+
+                for (let i = 0; i < this.particles.length; i++) {
+                    for (let j = i + 1; j < this.particles.length; j++) {
+                        const dist = Math.hypot(this.particles[i].x - this.particles[j].x, this.particles[i].y - this.particles[j].y);
+                        if (dist < 150) {
+                            this.ctx.beginPath();
+                            this.ctx.strokeStyle = `rgba(124, 58, 237, ${0.15 * (1 - dist / 150)})`;
+                            this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
+                            this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
+                            this.ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        window.onload = () => {
+            updateProgress();
+            new NeuralBackground();
+
+            // Handle Enter key for inputs
+            document.querySelectorAll('input[type="text"], input[type="email"]').forEach(input => {
+                input.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') nextStep();
+                });
+            });
+        };
+    </script>
+</body>
+
+</html>
