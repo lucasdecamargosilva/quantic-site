@@ -51,6 +51,30 @@
         body {
             background-color: #000000;
             color: #FFFFFF;
+            position: relative;
+        }
+
+        /* Fixed Background for the whole site */
+        .site-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            background: radial-gradient(circle at 50% 30%, rgba(122, 51, 255, 0.15) 0%, rgba(0, 0, 0, 1) 100%);
+        }
+
+        .neural-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.4;
         }
 
         .glass {
@@ -608,10 +632,32 @@
             border-color: rgba(122, 51, 255, 0.3) !important;
             transform: translateY(-5px);
         }
+
+        /* Mobile Scroll Glow Effects */
+        @media (max-width: 1024px) {
+            .glass-card.mobile-active-glow {
+                border-color: #7C3AED !important;
+                box-shadow: 0 0 25px rgba(124, 58, 237, 0.25) !important;
+            }
+
+            .neon-glow.mobile-active-glow {
+                box-shadow: 0 0 35px rgba(122, 51, 255, 0.3) !important;
+                border-color: rgba(122, 51, 255, 0.5) !important;
+            }
+
+            .testimonial-card.mobile-active-glow {
+                border-color: #7A33FF !important;
+                box-shadow: 0 0 45px rgba(122, 51, 255, 0.3) !important;
+            }
+        }
     </style>
 </head>
 
 <body class="antialiased overflow-x-hidden">
+
+    <!-- Global Background Elements -->
+    <div class="site-bg"></div>
+    <canvas id="neuralNetwork" class="neural-canvas"></canvas>
 
     <!-- Navbar -->
     <nav class="absolute w-full z-50 bg-gradient-to-b from-black via-black/70 to-transparent pt-4 pb-4">
@@ -679,11 +725,7 @@
 
 
     <!-- Hero Section -->
-    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-        <!-- Neural Network Background -->
-        <canvas id="neuralNetwork"
-            class="neural-canvas absolute inset-0 w-full h-full pointer-events-none opacity-50"></canvas>
-
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-transparent">
         <div
             class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl bg-hero-glow pointer-events-none opacity-60">
         </div>
@@ -815,7 +857,7 @@
 
 
     <!-- Porque você perde vendas section -->
-    <section class="py-12 md:py-24 bg-black relative overflow-hidden">
+    <section class="py-12 md:py-24 bg-transparent relative overflow-hidden">
         <div class="absolute top-0 right-0 w-1/2 h-1/2 bg-q-primary/5 blur-[120px] rounded-full pointer-events-none">
         </div>
         <div
@@ -1032,7 +1074,7 @@
     </section>
 
     <!-- IA de Atendimento, Suporte e Agendamento -->
-    <section class="pt-8 pb-16 md:py-12 bg-q-surface/10 overflow-hidden group">
+    <section class="pt-8 pb-16 md:py-12 bg-transparent overflow-hidden group">
         <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
                 <div class="order-1 lg:order-1 reveal-on-scroll">
@@ -1170,7 +1212,7 @@
     </section>
 
     <!-- Alternating Features Section 1 (IA de extração de Leads) -->
-    <section class="pt-8 pb-16 md:py-12 bg-black overflow-hidden group">
+    <section class="pt-8 pb-16 md:py-12 bg-transparent overflow-hidden group">
         <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
                 <div class="order-2 lg:order-1 relative group reveal-on-scroll">
@@ -1201,7 +1243,7 @@
     </section>
 
     <!-- Alternating Features Section 2 -->
-    <section class="pt-8 pb-16 md:py-12 bg-q-surface/20 overflow-hidden group">
+    <section class="pt-8 pb-16 md:py-12 bg-transparent overflow-hidden group">
         <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
                 <div class="order-1 lg:order-1 reveal-on-scroll">
@@ -1230,7 +1272,7 @@
     </section>
 
     <!-- Alternating Features Section 3 -->
-    <section class="pt-8 pb-16 md:py-12 bg-black overflow-hidden group">
+    <section class="pt-8 pb-16 md:py-12 bg-transparent overflow-hidden group">
         <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
                 <div class="order-2 lg:order-1 relative group reveal-on-scroll">
@@ -1259,7 +1301,7 @@
     </section>
 
     <!-- Alternating Features Section 4: IA Analítica de Performance -->
-    <section class="pt-8 pb-16 md:py-12 bg-q-surface/10 overflow-hidden group">
+    <section class="pt-8 pb-16 md:py-12 bg-transparent overflow-hidden group">
         <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
                 <div class="order-1 lg:order-1 reveal-on-scroll">
@@ -1312,7 +1354,7 @@
 
 
     <!-- Como Funciona -->
-    <section id="como-funciona" class="py-12 md:py-24 relative overflow-hidden bg-[#050505]">
+    <section id="como-funciona" class="py-12 md:py-24 relative overflow-hidden bg-transparent">
         <div
             class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(122,51,255,0.05)_0%,transparent_70%)] pointer-events-none">
         </div>
@@ -1609,7 +1651,7 @@
     </section>
 
     <!-- Integrations Section -->
-    <section class="py-32 bg-q-bg border-y border-white/5 overflow-hidden">
+    <section class="py-32 bg-transparent border-y border-white/5 overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8">
             <div class="text-center mb-20">
                 <h2 class="font-display text-4xl md:text-5xl font-bold mb-6 text-white leading-tight">
@@ -1753,7 +1795,7 @@
 
 
     <!-- Diferenciais -->
-    <section class="py-12 md:py-24 bg-black relative overflow-hidden">
+    <section class="py-12 md:py-24 bg-transparent relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-20">
                 <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
@@ -1856,7 +1898,7 @@
 
 
 
-    <section id="nichos" class="py-12 md:py-24 bg-black relative">
+    <section id="nichos" class="py-12 md:py-24 bg-transparent relative">
         <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-16">
                 <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-4">Para quem é a <span
@@ -1980,7 +2022,7 @@
 
 
     <!-- Planos -->
-    <section id="planos" class="py-12 md:py-24 relative overflow-hidden bg-black">
+    <section id="planos" class="py-12 md:py-24 relative overflow-hidden bg-transparent">
         <!-- Background Orbs -->
         <div class="absolute top-0 left-1/4 w-96 h-96 bg-q-primary/10 blur-[120px] rounded-full pointer-events-none">
         </div>
@@ -2235,7 +2277,7 @@
     </section>
 
     <!-- Tabela Comparativa -->
-    <section class="py-12 md:py-24 bg-q-bg relative overflow-hidden">
+    <section class="py-12 md:py-24 bg-transparent relative overflow-hidden">
         <div class="max-w-5xl mx-auto px-6 sm:px-6 lg:px-8 relative z-10">
             <h2 class="font-display text-4xl md:text-5xl font-bold text-center mb-20 text-white">
                 Compare os <span class="text-q-primary drop-shadow-[0_0_15px_rgba(122,51,255,0.8)]">Planos</span>
@@ -2576,7 +2618,7 @@
     </section>
 
     <!-- Prova Social (Testimonials) -->
-    <section class="py-12 md:py-24 bg-black overflow-hidden relative">
+    <section class="py-12 md:py-24 bg-transparent overflow-hidden relative">
         <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 relative z-10 mb-12 text-center">
             <h2 class="font-display text-3xl md:text-5xl font-bold text-white mb-4">
                 Quem Já Transformou o Jogo com a <span
@@ -2738,7 +2780,7 @@
     </section>
 
     <!-- FAQ -->
-    <section id="faq" class="py-12 md:py-24 relative overflow-hidden bg-black">
+    <section id="faq" class="py-12 md:py-24 relative overflow-hidden bg-transparent">
         <!-- Background decorative elements -->
         <div
             class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-q-primary/5 blur-[120px] rounded-full pointer-events-none">
@@ -2892,7 +2934,7 @@
     </section>
 
     <!-- Footer CTA -->
-    <section class="py-32 bg-black relative overflow-hidden">
+    <section class="py-32 bg-transparent relative overflow-hidden">
         <!-- Background decorative glows -->
         <div class="absolute top-0 left-1/4 w-96 h-96 bg-q-primary/10 blur-[120px] rounded-full pointer-events-none">
         </div>
@@ -3137,8 +3179,8 @@
             }
 
             resizeCanvas() {
-                this.canvas.width = this.canvas.offsetWidth;
-                this.canvas.height = this.canvas.offsetHeight;
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
             }
 
             init() {
@@ -3277,6 +3319,12 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('active');
+                        // Also trigger mobile glow if it's a card
+                        if (entry.target.classList.contains('glass-card') ||
+                            entry.target.classList.contains('neon-glow') ||
+                            entry.target.classList.contains('testimonial-card')) {
+                            entry.target.classList.add('mobile-active-glow');
+                        }
                         observer.unobserve(entry.target);
                     }
                 });
@@ -3285,6 +3333,28 @@
             document.querySelectorAll('.reveal-on-scroll').forEach(el => {
                 observer.observe(el);
             });
+        }
+
+        // Dedicated Mobile Glow Observer for elements that might not have reveal-on-scroll
+        function initMobileGlow() {
+            if (window.innerWidth > 1024) return;
+
+            const glowObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('mobile-active-glow');
+                    } else {
+                        // Optional: remove when out of view to focus on current card
+                        entry.target.classList.remove('mobile-active-glow');
+                    }
+                });
+            }, {
+                threshold: 0.6, // Higher threshold so it glows when centered
+                rootMargin: '-10% 0px -10% 0px'
+            });
+
+            const cards = document.querySelectorAll('.glass-card, .neon-glow, .testimonial-card');
+            cards.forEach(card => glowObserver.observe(card));
         }
 
         // Chat Animation Logic
@@ -3362,6 +3432,7 @@
 
             initTyping();
             initScrollReveal();
+            initMobileGlow();
             initNeuralBackgrounds();
             initChatAnimation();
             initCarousel('qualificacao-carousel');
