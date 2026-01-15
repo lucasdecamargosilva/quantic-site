@@ -249,6 +249,12 @@
             transform: translateY(0);
         }
 
+        .message {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
         .message.active {
             opacity: 1;
             transform: translateY(0);
@@ -489,8 +495,9 @@
         }
 
         .marquee-logo {
-            height: 65px;
-            width: 140px;
+            height: 45px;
+            width: auto;
+            max-width: 140px;
             object-fit: contain;
             /* Filtro para transformar qualquer cor no roxo #7A33FF */
             filter: brightness(0) saturate(100%) invert(20%) sepia(88%) saturate(3990%) hue-rotate(259deg) brightness(98%) contrast(115%);
@@ -505,12 +512,6 @@
             filter: none !important;
         }
 
-        /* Destaque específico para o Tiny ERP e outros que precisam ser maiores */
-        .marquee-item[data-brand="tiny"] .marquee-logo {
-            height: 80px;
-            /* Proporcionalmente reduzido */
-            width: 160px;
-        }
 
         .marquee-name {
             color: #FFFFFF;
@@ -545,7 +546,7 @@
         .testimonials-marquee {
             display: flex;
             width: max-content;
-            animation: marquee 60s linear infinite;
+            animation: marquee 12s linear infinite;
             gap: 32px;
             padding: 40px 0;
         }
@@ -759,27 +760,27 @@
 
                                 <!-- Messages -->
                                 <div id="hero-chat-messages"
-                                    class="flex flex-col gap-5 overflow-y-auto max-h-[350px] scrollbar-hide pr-1">
+                                    class="flex flex-col gap-3 overflow-y-auto max-h-[350px] scrollbar-hide pr-1">
                                     <div
-                                        class="message self-start bg-[#1C1C24] border border-white/10 rounded-2xl rounded-tl-none px-5 py-3.5 max-w-[85%] text-left">
-                                        <p class="text-[14px] text-white font-medium">Olá, gostaria de saber mais
+                                        class="message self-start bg-[#1C1C24] border border-white/10 rounded-2xl rounded-tl-none px-4 py-2.5 max-w-[85%] text-left">
+                                        <p class="text-[13px] text-white font-medium">Olá, gostaria de saber mais
                                             sobre a Quantic!</p>
                                     </div>
                                     <div
-                                        class="message self-end bg-[#251B3D] border border-[#7A33FF]/50 rounded-2xl rounded-tr-none px-5 py-3.5 max-w-[85%] text-left">
-                                        <p class="text-[14px] text-white font-medium">Eu sou a IA da Quantic. 👋
+                                        class="message self-end bg-[#251B3D] border border-[#7A33FF]/50 rounded-2xl rounded-tr-none px-4 py-2.5 max-w-[85%] text-left">
+                                        <p class="text-[13px] text-white font-medium">Eu sou a IA da Quantic. 👋
                                             Posso automatizar seu atendimento.</p>
                                     </div>
                                     <div
-                                        class="message self-start bg-[#1C1C24] border border-white/10 rounded-2xl rounded-tl-none px-5 py-3.5 max-w-[85%] text-left">
-                                        <p class="text-[14px] text-white font-medium">Tenho uma imobiliária e recebo
+                                        class="message self-start bg-[#1C1C24] border border-white/10 rounded-2xl rounded-tl-none px-4 py-2.5 max-w-[85%] text-left">
+                                        <p class="text-[13px] text-white font-medium">Tenho uma imobiliária e recebo
                                             muitos leads curiosos.</p>
                                     </div>
                                     <div
-                                        class="message self-end bg-[#251B3D] border border-[#7A33FF]/50 rounded-2xl rounded-tr-none px-5 py-3.5 max-w-[85%] text-left">
-                                        <p class="text-[14px] text-white font-medium">Posso qualificar todos e
+                                        class="message self-end bg-[#251B3D] border border-[#7A33FF]/50 rounded-2xl rounded-tr-none px-4 py-2.5 max-w-[85%] text-left">
+                                        <p class="text-[13px] text-white font-medium">Posso qualificar todos e
                                             agendar visitas pra você!</p>
-                                        <div class="mt-4 flex flex-wrap gap-2">
+                                        <div class="mt-3 flex flex-wrap gap-2">
                                             <div
                                                 class="px-3 py-1.5 bg-[#7A33FF] rounded-lg text-[10px] text-white font-black uppercase tracking-widest shadow-[0_0_15px_rgba(122,51,255,0.5)]">
                                                 Qualificar Leads</div>
@@ -1627,63 +1628,59 @@
                 <div class="marquee">
                     <div class="marquee-content">
                         <div class="marquee-item">
-                            <img src="whatsapp_tile_custom.png" alt="WhatsApp" class="marquee-logo no-filter">
-                            <span class="marquee-name">WhatsApp</span>
+                            <img src="instagram_logo.png" alt="Instagram" class="marquee-logo no-filter scale-125">
                         </div>
                         <div class="marquee-item">
-                            <img src="https://www.vectorlogo.zone/logos/instagram/instagram-icon.svg" alt="Instagram"
-                                class="marquee-logo">
-                            <span class="marquee-name">Instagram</span>
+                            <img src="meta_premium.png" alt="Meta" class="marquee-logo no-filter">
                         </div>
                         <div class="marquee-item">
-                            <img src="https://www.vectorlogo.zone/logos/facebook/facebook-official.svg"
-                                alt="Facebook Meta" class="marquee-logo">
-                            <span class="marquee-name">Facebook Meta</span>
+                            <img src="kommo_logo.png" alt="Kommo CRM" class="marquee-logo no-filter scale-125">
                         </div>
                         <div class="marquee-item">
-                            <img src="https://www.vectorlogo.zone/logos/amocrm/amocrm-icon.svg" alt="Kommo CRM"
-                                class="marquee-logo">
-                            <span class="marquee-name">Kommo CRM</span>
+                            <img src="kiwify_logo.png" alt="Kiwify" class="marquee-logo no-filter">
                         </div>
                         <div class="marquee-item">
-                            <img src="https://www.vectorlogo.zone/logos/pipedrive/pipedrive-icon.svg" alt="Pipedrive"
-                                class="marquee-logo">
-                            <span class="marquee-name">Pipedrive</span>
+                            <img src="hotmart_logo.png" alt="Hotmart" class="marquee-logo no-filter scale-125">
                         </div>
                         <div class="marquee-item">
-                            <img src="https://www.vectorlogo.zone/logos/rdstation/rdstation-icon.svg" alt="RD Station"
-                                class="marquee-logo">
-                            <span class="marquee-name">RD Station</span>
+                            <img src="activecampaign_logo.png" alt="ActiveCampaign" class="marquee-logo no-filter">
+                        </div>
+                        <div class="marquee-item">
+                            <img src="webhooks_logo.png" alt="Webhooks" class="marquee-logo no-filter">
+                        </div>
+                        <div class="marquee-item">
+                            <img src="googleads_premium.png" alt="Google Ads" class="marquee-logo no-filter scale-125">
+                        </div>
+                        <div class="marquee-item">
+                            <img src="salesforce_logo.png" alt="Salesforce" class="marquee-logo no-filter scale-125">
                         </div>
                         <!-- Duplicate for loop -->
                         <div class="marquee-item">
-                            <img src="whatsapp_tile_custom.png" alt="WhatsApp" class="marquee-logo no-filter">
-                            <span class="marquee-name">WhatsApp</span>
+                            <img src="instagram_logo.png" alt="Instagram" class="marquee-logo no-filter scale-125">
                         </div>
                         <div class="marquee-item">
-                            <img src="https://www.vectorlogo.zone/logos/instagram/instagram-icon.svg" alt="Instagram"
-                                class="marquee-logo">
-                            <span class="marquee-name">Instagram</span>
+                            <img src="meta_premium.png" alt="Meta" class="marquee-logo no-filter">
                         </div>
                         <div class="marquee-item">
-                            <img src="https://www.vectorlogo.zone/logos/facebook/facebook-official.svg"
-                                alt="Facebook Meta" class="marquee-logo">
-                            <span class="marquee-name">Facebook Meta</span>
+                            <img src="kommo_logo.png" alt="Kommo CRM" class="marquee-logo no-filter scale-125">
                         </div>
                         <div class="marquee-item">
-                            <img src="https://www.vectorlogo.zone/logos/amocrm/amocrm-icon.svg" alt="Kommo CRM"
-                                class="marquee-logo">
-                            <span class="marquee-name">Kommo CRM</span>
+                            <img src="kiwify_logo.png" alt="Kiwify" class="marquee-logo no-filter">
                         </div>
                         <div class="marquee-item">
-                            <img src="https://www.vectorlogo.zone/logos/pipedrive/pipedrive-icon.svg" alt="Pipedrive"
-                                class="marquee-logo">
-                            <span class="marquee-name">Pipedrive</span>
+                            <img src="hotmart_logo.png" alt="Hotmart" class="marquee-logo no-filter scale-125">
                         </div>
                         <div class="marquee-item">
-                            <img src="https://www.vectorlogo.zone/logos/rdstation/rdstation-icon.svg" alt="RD Station"
-                                class="marquee-logo">
-                            <span class="marquee-name">RD Station</span>
+                            <img src="activecampaign_logo.png" alt="ActiveCampaign" class="marquee-logo no-filter">
+                        </div>
+                        <div class="marquee-item">
+                            <img src="webhooks_logo.png" alt="Webhooks" class="marquee-logo no-filter">
+                        </div>
+                        <div class="marquee-item">
+                            <img src="googleads_premium.png" alt="Google Ads" class="marquee-logo no-filter scale-125">
+                        </div>
+                        <div class="marquee-item">
+                            <img src="salesforce_logo.png" alt="Salesforce" class="marquee-logo no-filter scale-125">
                         </div>
                     </div>
                 </div>
@@ -1692,61 +1689,61 @@
                 <div class="marquee marquee-reverse">
                     <div class="marquee-content">
                         <div class="marquee-item">
-                            <img src="https://cdn.worldvectorlogo.com/logos/shopee-1.svg" alt="Shopee"
-                                class="marquee-logo">
-                            <span class="marquee-name">Shopee</span>
+                            <img src="shopee_logo_v2.png" alt="Shopee" class="marquee-logo no-filter">
                         </div>
                         <div class="marquee-item">
-                            <img src="https://www.vectorlogo.zone/logos/mercadolivre/mercadolivre-icon.svg"
-                                alt="Mercado Livre" class="marquee-logo">
-                            <span class="marquee-name">Mercado Livre</span>
+                            <img src="mercadolivre_premium.png" alt="Mercado Livre" class="marquee-logo no-filter">
                         </div>
                         <div class="marquee-item">
-                            <img src="https://cdn.simpleicons.org/bling" alt="Bling" class="marquee-logo">
-                            <span class="marquee-name">Bling</span>
+                            <img src="bling_logo.png" alt="Bling" class="marquee-logo no-filter">
                         </div>
                         <div class="marquee-item">
-                            <img src="https://www.vectorlogo.zone/logos/nuvemshop/nuvemshop-icon.svg" alt="Nuvemshop"
-                                class="marquee-logo">
-                            <span class="marquee-name">Nuvemshop</span>
+                            <img src="nuvemshop_premium.png" alt="Nuvemshop" class="marquee-logo no-filter scale-125">
                         </div>
                         <div class="marquee-item">
-                            <img src="https://www.vectorlogo.zone/logos/gohighlevel/gohighlevel-icon.svg"
-                                alt="GoHighLevel" class="marquee-logo">
-                            <span class="marquee-name">HighLevel</span>
+                            <img src="gohighlevel_premium.png" alt="GoHighLevel"
+                                class="marquee-logo no-filter scale-125">
                         </div>
                         <div class="marquee-item" data-brand="tiny">
-                            <img src="https://cdn.simpleicons.org/tinyerp" alt="Tiny ERP" class="marquee-logo">
-                            <span class="marquee-name">Tiny ERP</span>
+                            <img src="tiny_premium.png" alt="Tiny ERP" class="marquee-logo no-filter">
+                        </div>
+                        <div class="marquee-item">
+                            <img src="kiwify_logo.png" alt="Kiwify" class="marquee-logo no-filter">
+                        </div>
+                        <div class="marquee-item">
+                            <img src="mercadopago_logo.png" alt="Mercado Pago" class="marquee-logo no-filter">
+                        </div>
+                        <div class="marquee-item">
+                            <img src="paypal_logo.png" alt="PayPal" class="marquee-logo no-filter">
                         </div>
                         <!-- Duplicate for loop -->
                         <div class="marquee-item">
-                            <img src="https://cdn.worldvectorlogo.com/logos/shopee-1.svg" alt="Shopee"
-                                class="marquee-logo">
-                            <span class="marquee-name">Shopee</span>
+                            <img src="shopee_logo_v2.png" alt="Shopee" class="marquee-logo no-filter">
                         </div>
                         <div class="marquee-item">
-                            <img src="https://www.vectorlogo.zone/logos/mercadolivre/mercadolivre-icon.svg"
-                                alt="Mercado Livre" class="marquee-logo">
-                            <span class="marquee-name">Mercado Livre</span>
+                            <img src="mercadolivre_premium.png" alt="Mercado Livre" class="marquee-logo no-filter">
                         </div>
                         <div class="marquee-item">
-                            <img src="https://cdn.simpleicons.org/bling" alt="Bling" class="marquee-logo">
-                            <span class="marquee-name">Bling</span>
+                            <img src="bling_logo.png" alt="Bling" class="marquee-logo no-filter">
                         </div>
                         <div class="marquee-item">
-                            <img src="https://www.vectorlogo.zone/logos/nuvemshop/nuvemshop-icon.svg" alt="Nuvemshop"
-                                class="marquee-logo">
-                            <span class="marquee-name">Nuvemshop</span>
+                            <img src="nuvemshop_premium.png" alt="Nuvemshop" class="marquee-logo no-filter scale-125">
                         </div>
                         <div class="marquee-item">
-                            <img src="https://www.vectorlogo.zone/logos/gohighlevel/gohighlevel-icon.svg"
-                                alt="GoHighLevel" class="marquee-logo">
-                            <span class="marquee-name">HighLevel</span>
+                            <img src="gohighlevel_premium.png" alt="GoHighLevel"
+                                class="marquee-logo no-filter scale-125">
                         </div>
                         <div class="marquee-item" data-brand="tiny">
-                            <img src="https://cdn.simpleicons.org/tinyerp" alt="Tiny ERP" class="marquee-logo">
-                            <span class="marquee-name">Tiny ERP</span>
+                            <img src="tiny_premium.png" alt="Tiny ERP" class="marquee-logo no-filter">
+                        </div>
+                        <div class="marquee-item">
+                            <img src="kiwify_logo.png" alt="Kiwify" class="marquee-logo no-filter">
+                        </div>
+                        <div class="marquee-item">
+                            <img src="mercadopago_logo.png" alt="Mercado Pago" class="marquee-logo no-filter">
+                        </div>
+                        <div class="marquee-item">
+                            <img src="paypal_logo.png" alt="PayPal" class="marquee-logo no-filter">
                         </div>
                     </div>
                 </div>
