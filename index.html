@@ -139,6 +139,22 @@
             }
         }
 
+        @keyframes float-slow {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .animate-float-slow {
+            animation: float-slow 4s ease-in-out infinite;
+        }
+
         .typing-text span {
             opacity: 0;
             display: inline-block;
@@ -484,13 +500,13 @@
         .marquee-content {
             display: flex;
             width: max-content;
-            animation: marquee 35s linear infinite;
+            animation: marquee 60s linear infinite;
             gap: 15px;
         }
 
         /* Second row moves in reverse or just staggered */
         .marquee-reverse .marquee-content {
-            animation: marquee-reverse 40s linear infinite;
+            animation: marquee-reverse 70s linear infinite;
         }
 
         .marquee-item {
@@ -570,7 +586,7 @@
         .testimonials-marquee {
             display: flex;
             width: max-content;
-            animation: marquee 12s linear infinite;
+            animation: marquee 60s linear infinite;
             gap: 32px;
             padding: 40px 0;
         }
@@ -648,6 +664,28 @@
             .testimonial-card.mobile-active-glow {
                 border-color: #7A33FF !important;
                 box-shadow: 0 0 45px rgba(122, 51, 255, 0.3) !important;
+            }
+
+            /* Custom rules for step items glow on mobile */
+            .neon-glow.mobile-active-glow .group-hover\:opacity-100 {
+                opacity: 1 !important;
+            }
+
+            .neon-glow.mobile-active-glow .group-hover\:border-q-primary\/50 {
+                border-color: rgba(122, 51, 255, 0.5) !important;
+            }
+
+            .neon-glow.mobile-active-glow .group-hover\:text-q-primary {
+                color: #7A33FF !important;
+            }
+
+            .neon-glow.mobile-active-glow .group-hover\:scale-110,
+            .neon-glow.mobile-active-glow .group-hover\:scale-105 {
+                transform: scale(1.1) !important;
+            }
+
+            .neon-glow.mobile-active-glow .group-hover\:bg-q-primary\/20 {
+                background-color: rgba(122, 51, 255, 0.2) !important;
             }
         }
     </style>
@@ -998,10 +1036,7 @@
     </section>
 
     <!-- Journey Section (Inspired by Image 2) -->
-    <section class="py-12 md:py-24 relative overflow-hidden bg-q-primary/5">
-        <div
-            class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(122,51,255,0.1),transparent_70%)] pointer-events-none">
-        </div>
+    <section class="py-12 md:py-24 relative overflow-hidden bg-transparent">
         <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-20 reveal-on-scroll">
                 <h2 class="font-display text-4xl md:text-6xl font-bold mb-6 text-white leading-tight">
@@ -1017,11 +1052,10 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Card 1 -->
                 <div class="glass-card rounded-[2rem] overflow-hidden group">
-                    <div class="p-6 md:p-8 pb-0">
-                        <div
-                            class="aspect-video md:aspect-[4/3] bg-[#000000] rounded-t-xl border border-white/5 overflow-hidden relative group-hover:scale-105 transition-transform duration-500">
-                            <img src="jornada_extracao_v3.png" alt="IA de Extração de Leads"
-                                class="w-full h-full object-cover md:scale-120 transition-transform duration-500">
+                    <div class="pt-10 md:pt-14 p-4 md:p-6 pb-0">
+                        <div class="aspect-video md:aspect-[4/3] rounded-t-xl relative animate-float-slow">
+                            <img src="jornada_extracao_v4.png" alt="IA de Extração de Leads"
+                                class="w-full h-full object-contain scale-[1.35] transition-transform duration-500">
                         </div>
                     </div>
                     <div class="p-6 md:p-8">
@@ -1036,11 +1070,10 @@
                 <!-- Card 2 (Featured) -->
                 <div
                     class="glass-card rounded-[2rem] overflow-hidden group border-q-primary/30 shadow-2xl shadow-q-primary/10">
-                    <div class="p-6 md:p-8 pb-0">
-                        <div
-                            class="aspect-video md:aspect-[4/3] bg-[#000000] rounded-t-xl border border-white/5 overflow-hidden relative group-hover:scale-105 transition-transform duration-500">
-                            <img src="jornada_funil_final.png" alt="Funil de Vendas CRM"
-                                class="w-full h-full object-cover md:scale-120 transition-transform duration-500">
+                    <div class="pt-10 md:pt-14 p-4 md:p-6 pb-0">
+                        <div class="aspect-video md:aspect-[4/3] rounded-t-xl relative animate-float-slow">
+                            <img src="funil-vendas.png" alt="Funil Inteligente CRM"
+                                class="w-full h-full object-contain scale-[1.3] transition-transform duration-500">
                         </div>
                     </div>
                     <div class="p-6 md:p-8">
@@ -1054,11 +1087,10 @@
 
                 <!-- Card 3 -->
                 <div class="glass-card rounded-[2rem] overflow-hidden group">
-                    <div class="p-6 md:p-8 pb-0">
-                        <div
-                            class="aspect-video md:aspect-[4/3] bg-[#000000] rounded-t-xl border border-white/5 overflow-hidden relative group-hover:scale-105 transition-transform duration-500">
-                            <img src="jornada_analise_v3.png" alt="CRM Personalizado e Análises"
-                                class="w-full h-full object-cover md:scale-120 transition-transform duration-500">
+                    <div class="pt-10 md:pt-14 p-4 md:p-6 pb-0">
+                        <div class="aspect-video md:aspect-[4/3] rounded-t-xl relative animate-float-slow">
+                            <img src="jornada_analise_v4.png" alt="CRM Personalizado e Análises"
+                                class="w-full h-full object-contain scale-[1.35] transition-transform duration-500">
                         </div>
                     </div>
                     <div class="p-6 md:p-8">
@@ -1093,118 +1125,9 @@
                         class="absolute -inset-4 bg-q-primary/20 blur-[80px] rounded-full opacity-50 group-hover:opacity-70 transition-opacity">
                     </div>
                     <div
-                        class="relative bg-black border border-white/10 rounded-[2.5rem] md:rounded-[3rem] overflow-hidden shadow-2xl transition-all duration-500 w-full max-w-[420px] md:max-w-[480px] aspect-square mx-auto neon-glow">
-                        <!-- High Fidelity 3D UI Mockup (Built with HTML/CSS) -->
-                        <div
-                            class="w-full h-full bg-black relative overflow-hidden select-none flex items-center justify-center">
-                            <!-- Subtle purple background glow for depth -->
-                            <div
-                                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-q-primary/10 blur-[120px] rounded-full">
-                            </div>
-
-                            <!-- Isometric Container -->
-                            <div class="relative w-[130%] h-[130%] md:w-[120%] md:h-[120%] flex items-center justify-center scale-[0.6] sm:scale-90 md:scale-100"
-                                style="transform: perspective(2000px) rotateX(25deg) rotateY(-15deg) rotateZ(5deg);">
-
-                                <!-- Left Panel: Profile & Status -->
-                                <div class="absolute left-[10%] top-[25%] w-[40%] flex flex-col gap-6 animate-float"
-                                    style="z-index: 2;">
-                                    <div
-                                        class="bg-white rounded-[2.5rem] p-6 shadow-[20px_40px_60px_rgba(0,0,0,0.6)] border border-white/20">
-                                        <div
-                                            class="w-20 h-20 mx-auto bg-q-primary/20 rounded-full flex items-center justify-center relative shadow-inner">
-                                            <div
-                                                class="w-16 h-16 bg-gray-300 rounded-full overflow-hidden border-2 border-white">
-                                                <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=150&h=150&auto=format&fit=crop"
-                                                    class="w-full h-full object-cover grayscale opacity-90"
-                                                    alt="Avatar">
-                                            </div>
-                                            <div
-                                                class="absolute -bottom-2 -right-2 w-9 h-9 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-q-primary/10">
-                                                <svg class="w-5 h-5 text-q-primary" viewBox="0 0 24 24"
-                                                    fill="currentColor">
-                                                    <path
-                                                        d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20ZM12,6h0C9.24,6,7,8.24,7,11v3.5a1,1,0,0,1-1,1h0a1,1,0,0,0,0,2h12a1,1,0,0,0,0-2h0a1,1,0,0,1-1-1V11C17,8.24,14.76,6,12,6Z" />
-                                                </svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="bg-white/95 backdrop-blur-md rounded-3xl p-6 shadow-[15px_30px_40px_rgba(0,0,0,0.5)] border border-white/20">
-                                        <div class="flex items-center gap-2 mb-2">
-                                            <div class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></div>
-                                            <p class="text-[12px] font-bold text-gray-400 uppercase tracking-widest">
-                                                Assistente IA</p>
-                                        </div>
-                                        <p class="text-[14px] font-bold text-gray-700 leading-tight">Agenda otimizada
-                                            para hoje</p>
-                                    </div>
-                                </div>
-
-                                <!-- Right Panel: Complex Dashboard -->
-                                <div class="absolute right-[5%] w-[60%] h-[75%] bg-white/95 rounded-[3rem] p-8 shadow-[40px_60px_100px_rgba(0,0,0,0.7)] border border-white/20 flex flex-col gap-6 animate-float"
-                                    style="animation-delay: 1.5s; z-index: 1;">
-                                    <!-- Header Tooltip -->
-                                    <div
-                                        class="bg-q-primary text-white px-6 py-3 rounded-2xl text-center shadow-xl shadow-q-primary/30">
-                                        <p class="text-[12px] font-black uppercase tracking-[0.2em] whitespace-nowrap">
-                                            IA DE ATENDIMENTO</p>
-                                    </div>
-
-                                    <!-- Mock Calendar Grid -->
-                                    <div
-                                        class="flex-1 bg-gray-50 rounded-[2rem] p-6 border border-gray-100 flex flex-col gap-5">
-                                        <div class="flex justify-between items-center px-2">
-                                            <div class="w-2 h-2 rounded-full bg-gray-300"></div>
-                                            <div class="w-3 h-3 rounded-full bg-q-primary/40"></div>
-                                            <div class="w-2 h-2 rounded-full bg-gray-300"></div>
-                                        </div>
-                                        <div class="space-y-4">
-                                            <div class="flex items-center gap-4">
-                                                <span class="text-[10px] font-black text-gray-400 w-6">10h</span>
-                                                <div
-                                                    class="flex-1 h-6 bg-q-primary/10 rounded-xl relative overflow-hidden shadow-inner">
-                                                    <div class="absolute inset-y-0 left-0 w-1/3 bg-q-primary/30"></div>
-                                                </div>
-                                            </div>
-                                            <div class="flex items-center gap-4">
-                                                <span class="text-[10px] font-black text-gray-400 w-6">12h</span>
-                                                <div class="flex-1 h-6 bg-q-primary/40 rounded-xl shadow-inner"></div>
-                                            </div>
-                                            <div class="flex items-center gap-4">
-                                                <span class="text-[10px] font-black text-gray-400 w-6">14h</span>
-                                                <div class="flex-1 h-6 bg-gray-200 rounded-xl shadow-inner"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Tags Layout -->
-                                    <div class="flex items-center justify-between">
-                                        <div
-                                            class="bg-q-primary/10 text-q-primary px-5 py-2.5 rounded-xl border border-q-primary/5">
-                                            <p class="text-[11px] font-black uppercase tracking-widest">Equipe de Hoje
-                                            </p>
-                                        </div>
-                                        <div class="flex -space-x-3">
-                                            <div
-                                                class="w-10 h-10 rounded-full border-4 border-white bg-gray-200 shadow-lg">
-                                            </div>
-                                            <div
-                                                class="w-10 h-10 rounded-full border-4 border-white bg-gray-300 shadow-lg">
-                                            </div>
-                                            <div
-                                                class="w-10 h-10 rounded-full border-4 border-white bg-gray-400 shadow-lg">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Overall Reflection Overlay -->
-                            <div
-                                class="absolute inset-0 bg-gradient-to-tr from-white/5 via-transparent to-white/10 pointer-events-none">
-                            </div>
-                        </div>
+                        class="relative bg-black border border-white/10 rounded-[2.5rem] md:rounded-[3rem] overflow-hidden shadow-2xl transition-all duration-500 w-full max-w-[520px] md:max-w-[580px] aspect-square mx-auto neon-glow">
+                        <img src="atendimento_hero_v3.jpg" alt="IA de Atendimento e Agendamentos"
+                            class="w-full h-full object-contain">
                     </div>
                 </div>
             </div>
@@ -1221,8 +1144,8 @@
                     </div>
                     <div
                         class="relative bg-black border border-white/10 rounded-[2.5rem] md:rounded-[3rem] overflow-hidden shadow-2xl transition-all duration-500 w-full max-w-[420px] md:max-w-[480px] aspect-square mx-auto neon-glow">
-                        <img src="captacao_hero_v2.png" alt="IA de Extração de Leads"
-                            class="w-full h-full object-cover">
+                        <img src="captacao_hero_v3.jpg" alt="IA de Extração de Leads"
+                            class="w-full h-full object-contain">
                     </div>
                 </div>
                 <div class="order-1 lg:order-2 reveal-on-scroll delay-200">
@@ -1263,8 +1186,8 @@
                     </div>
                     <div
                         class="relative bg-black border border-white/10 rounded-[2.5rem] md:rounded-[3rem] overflow-hidden shadow-2xl transition-all duration-500 w-full max-w-[420px] md:max-w-[480px] aspect-square mx-auto neon-glow">
-                        <img src="jornada_funil_final.png" alt="IA de Qualificação de Leads"
-                            class="w-full h-full object-cover">
+                        <img src="jornada_funil_v7.jpg" alt="IA de Qualificação de Leads"
+                            class="w-full h-full object-contain">
                     </div>
                 </div>
             </div>
@@ -1281,8 +1204,8 @@
                     </div>
                     <div
                         class="relative bg-black border border-white/10 rounded-[2.5rem] md:rounded-[3rem] overflow-hidden shadow-2xl transition-all duration-500 w-full max-w-[420px] md:max-w-[480px] aspect-square mx-auto neon-glow">
-                        <img src="prospeccao_hero_v2.png" alt="IA de Prospecção Automática"
-                            class="w-full h-full object-cover">
+                        <img src="prospeccao_hero_v4.jpg" alt="IA de Prospecção Automática"
+                            class="w-full h-full object-contain">
                     </div>
                 </div>
                 <div class="order-1 lg:order-2 reveal-on-scroll delay-200">
@@ -1344,8 +1267,8 @@
                     </div>
                     <div
                         class="relative bg-black border border-white/10 rounded-[2.5rem] md:rounded-[3rem] overflow-hidden shadow-2xl transition-all duration-500 w-full max-w-[420px] md:max-w-[480px] aspect-square mx-auto neon-glow">
-                        <img src="analitica_hero_v2.png" alt="IA Analítica de Performance"
-                            class="w-full h-full object-cover">
+                        <img src="analitica_hero_v4.png" alt="IA Analítica de Performance"
+                            class="w-full h-full object-contain scale-[0.8]">
                     </div>
                 </div>
             </div>
@@ -1355,10 +1278,6 @@
 
     <!-- Como Funciona -->
     <section id="como-funciona" class="py-12 md:py-24 relative overflow-hidden bg-transparent">
-        <div
-            class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(122,51,255,0.05)_0%,transparent_70%)] pointer-events-none">
-        </div>
-        <canvas class="neural-canvas absolute inset-0 w-full h-full pointer-events-none opacity-30"></canvas>
 
         <div class="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-20 reveal-on-scroll">
@@ -1426,7 +1345,7 @@
                 </div>
 
                 <!-- Step 1: Captação -->
-                <div class="relative group reveal-on-scroll">
+                <div class="relative group reveal-on-scroll neon-glow">
                     <div class="flex flex-col items-center text-center">
                         <div class="relative mb-8">
                             <div
@@ -1463,7 +1382,7 @@
                 </div>
 
                 <!-- Step 2: Qualificação -->
-                <div class="relative group reveal-on-scroll" style="transition-delay: 100ms;">
+                <div class="relative group reveal-on-scroll neon-glow" style="transition-delay: 100ms;">
                     <div class="flex flex-col items-center text-center">
                         <div class="relative mb-8">
                             <div
@@ -1500,7 +1419,7 @@
                 </div>
 
                 <!-- Step 3: Organização -->
-                <div class="relative group reveal-on-scroll" style="transition-delay: 200ms;">
+                <div class="relative group reveal-on-scroll neon-glow" style="transition-delay: 200ms;">
                     <div class="flex flex-col items-center text-center">
                         <div class="relative mb-8">
                             <div
@@ -1538,7 +1457,7 @@
                 </div>
 
                 <!-- Step 4: Conversão -->
-                <div class="relative group reveal-on-scroll" style="transition-delay: 300ms;">
+                <div class="relative group reveal-on-scroll neon-glow" style="transition-delay: 300ms;">
                     <div class="flex flex-col items-center text-center">
                         <div class="relative mb-8">
                             <div
@@ -1575,7 +1494,7 @@
                 </div>
 
                 <!-- Step 5: Análise de Performance -->
-                <div class="relative group reveal-on-scroll" style="transition-delay: 400ms;">
+                <div class="relative group reveal-on-scroll neon-glow" style="transition-delay: 400ms;">
                     <div class="flex flex-col items-center text-center">
                         <div class="relative mb-8">
                             <div
@@ -1612,7 +1531,7 @@
                 </div>
 
                 <!-- Step 6: Gestão Estratégica -->
-                <div class="relative group reveal-on-scroll" style="transition-delay: 500ms;">
+                <div class="relative group reveal-on-scroll neon-glow" style="transition-delay: 500ms;">
                     <div class="flex flex-col items-center text-center">
                         <div class="relative mb-8">
                             <div
@@ -1669,124 +1588,164 @@
                 <!-- First Row: Moving Right to Left -->
                 <div class="marquee">
                     <div class="marquee-content">
-                        <div class="marquee-item">
-                            <img src="instagram_logo.png" alt="Instagram" class="marquee-logo no-filter scale-125">
+                        <!-- Set 1 -->
+                        <div class="marquee-item"><img src="instagram_logo.png" alt="Instagram"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <div class="marquee-item"><img src="meta_premium.png" alt="Meta" class="marquee-logo no-filter">
                         </div>
-                        <div class="marquee-item">
-                            <img src="meta_premium.png" alt="Meta" class="marquee-logo no-filter">
+                        <div class="marquee-item"><img src="kommo_logo.png" alt="Kommo CRM"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <div class="marquee-item"><img src="kiwify_logo.png" alt="Kiwify"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="hotmart_logo.png" alt="Hotmart"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <div class="marquee-item"><img src="activecampaign_logo.png" alt="ActiveCampaign"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="webhooks_logo.png" alt="Webhooks"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="googleads_premium.png" alt="Google Ads"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <div class="marquee-item"><img src="salesforce_logo.png" alt="Salesforce"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <!-- Set 2 -->
+                        <div class="marquee-item"><img src="instagram_logo.png" alt="Instagram"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <div class="marquee-item"><img src="meta_premium.png" alt="Meta" class="marquee-logo no-filter">
                         </div>
-                        <div class="marquee-item">
-                            <img src="kommo_logo.png" alt="Kommo CRM" class="marquee-logo no-filter scale-125">
+                        <div class="marquee-item"><img src="kommo_logo.png" alt="Kommo CRM"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <div class="marquee-item"><img src="kiwify_logo.png" alt="Kiwify"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="hotmart_logo.png" alt="Hotmart"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <div class="marquee-item"><img src="activecampaign_logo.png" alt="ActiveCampaign"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="webhooks_logo.png" alt="Webhooks"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="googleads_premium.png" alt="Google Ads"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <div class="marquee-item"><img src="salesforce_logo.png" alt="Salesforce"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <!-- Set 3 -->
+                        <div class="marquee-item"><img src="instagram_logo.png" alt="Instagram"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <div class="marquee-item"><img src="meta_premium.png" alt="Meta" class="marquee-logo no-filter">
                         </div>
-                        <div class="marquee-item">
-                            <img src="kiwify_logo.png" alt="Kiwify" class="marquee-logo no-filter">
+                        <div class="marquee-item"><img src="kommo_logo.png" alt="Kommo CRM"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <div class="marquee-item"><img src="kiwify_logo.png" alt="Kiwify"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="hotmart_logo.png" alt="Hotmart"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <div class="marquee-item"><img src="activecampaign_logo.png" alt="ActiveCampaign"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="webhooks_logo.png" alt="Webhooks"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="googleads_premium.png" alt="Google Ads"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <div class="marquee-item"><img src="salesforce_logo.png" alt="Salesforce"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <!-- Set 4 -->
+                        <div class="marquee-item"><img src="instagram_logo.png" alt="Instagram"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <div class="marquee-item"><img src="meta_premium.png" alt="Meta" class="marquee-logo no-filter">
                         </div>
-                        <div class="marquee-item">
-                            <img src="hotmart_logo.png" alt="Hotmart" class="marquee-logo no-filter scale-125">
-                        </div>
-                        <div class="marquee-item">
-                            <img src="activecampaign_logo.png" alt="ActiveCampaign" class="marquee-logo no-filter">
-                        </div>
-                        <div class="marquee-item">
-                            <img src="webhooks_logo.png" alt="Webhooks" class="marquee-logo no-filter">
-                        </div>
-                        <div class="marquee-item">
-                            <img src="googleads_premium.png" alt="Google Ads" class="marquee-logo no-filter scale-125">
-                        </div>
-                        <div class="marquee-item">
-                            <img src="salesforce_logo.png" alt="Salesforce" class="marquee-logo no-filter scale-125">
-                        </div>
-                        <!-- Duplicate for loop -->
-                        <div class="marquee-item">
-                            <img src="instagram_logo.png" alt="Instagram" class="marquee-logo no-filter scale-125">
-                        </div>
-                        <div class="marquee-item">
-                            <img src="meta_premium.png" alt="Meta" class="marquee-logo no-filter">
-                        </div>
-                        <div class="marquee-item">
-                            <img src="kommo_logo.png" alt="Kommo CRM" class="marquee-logo no-filter scale-125">
-                        </div>
-                        <div class="marquee-item">
-                            <img src="kiwify_logo.png" alt="Kiwify" class="marquee-logo no-filter">
-                        </div>
-                        <div class="marquee-item">
-                            <img src="hotmart_logo.png" alt="Hotmart" class="marquee-logo no-filter scale-125">
-                        </div>
-                        <div class="marquee-item">
-                            <img src="activecampaign_logo.png" alt="ActiveCampaign" class="marquee-logo no-filter">
-                        </div>
-                        <div class="marquee-item">
-                            <img src="webhooks_logo.png" alt="Webhooks" class="marquee-logo no-filter">
-                        </div>
-                        <div class="marquee-item">
-                            <img src="googleads_premium.png" alt="Google Ads" class="marquee-logo no-filter scale-125">
-                        </div>
-                        <div class="marquee-item">
-                            <img src="salesforce_logo.png" alt="Salesforce" class="marquee-logo no-filter scale-125">
-                        </div>
+                        <div class="marquee-item"><img src="kommo_logo.png" alt="Kommo CRM"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <div class="marquee-item"><img src="kiwify_logo.png" alt="Kiwify"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="hotmart_logo.png" alt="Hotmart"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <div class="marquee-item"><img src="activecampaign_logo.png" alt="ActiveCampaign"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="webhooks_logo.png" alt="Webhooks"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="googleads_premium.png" alt="Google Ads"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <div class="marquee-item"><img src="salesforce_logo.png" alt="Salesforce"
+                                class="marquee-logo no-filter scale-125"></div>
                     </div>
                 </div>
 
-                <!-- Second Row: Moving Left to Right -->
+                <!-- Second Row -->
                 <div class="marquee marquee-reverse">
                     <div class="marquee-content">
-                        <div class="marquee-item">
-                            <img src="shopee_logo_v2.png" alt="Shopee" class="marquee-logo no-filter">
+                        <!-- Set 1 -->
+                        <div class="marquee-item"><img src="shopee_logo_v2.png" alt="Shopee"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="mercadolivre_premium.png" alt="Mercado Livre"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="bling_logo.png" alt="Bling" class="marquee-logo no-filter">
                         </div>
-                        <div class="marquee-item">
-                            <img src="mercadolivre_premium.png" alt="Mercado Livre" class="marquee-logo no-filter">
+                        <div class="marquee-item"><img src="nuvemshop_premium.png" alt="Nuvemshop"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <div class="marquee-item"><img src="gohighlevel_premium.png" alt="GoHighLevel"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <div class="marquee-item"><img src="tiny_premium.png" alt="Tiny ERP"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="kiwify_logo.png" alt="Kiwify"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="mercadopago_logo.png" alt="Mercado Pago"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="paypal_logo.png" alt="PayPal"
+                                class="marquee-logo no-filter"></div>
+                        <!-- Set 2 -->
+                        <div class="marquee-item"><img src="shopee_logo_v2.png" alt="Shopee"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="mercadolivre_premium.png" alt="Mercado Livre"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="bling_logo.png" alt="Bling" class="marquee-logo no-filter">
                         </div>
-                        <div class="marquee-item">
-                            <img src="bling_logo.png" alt="Bling" class="marquee-logo no-filter">
+                        <div class="marquee-item"><img src="nuvemshop_premium.png" alt="Nuvemshop"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <div class="marquee-item"><img src="gohighlevel_premium.png" alt="GoHighLevel"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <div class="marquee-item"><img src="tiny_premium.png" alt="Tiny ERP"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="kiwify_logo.png" alt="Kiwify"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="mercadopago_logo.png" alt="Mercado Pago"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="paypal_logo.png" alt="PayPal"
+                                class="marquee-logo no-filter"></div>
+                        <!-- Set 3 -->
+                        <div class="marquee-item"><img src="shopee_logo_v2.png" alt="Shopee"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="mercadolivre_premium.png" alt="Mercado Livre"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="bling_logo.png" alt="Bling" class="marquee-logo no-filter">
                         </div>
-                        <div class="marquee-item">
-                            <img src="nuvemshop_premium.png" alt="Nuvemshop" class="marquee-logo no-filter scale-125">
+                        <div class="marquee-item"><img src="nuvemshop_premium.png" alt="Nuvemshop"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <div class="marquee-item"><img src="gohighlevel_premium.png" alt="GoHighLevel"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <div class="marquee-item"><img src="tiny_premium.png" alt="Tiny ERP"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="kiwify_logo.png" alt="Kiwify"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="mercadopago_logo.png" alt="Mercado Pago"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="paypal_logo.png" alt="PayPal"
+                                class="marquee-logo no-filter"></div>
+                        <!-- Set 4 -->
+                        <div class="marquee-item"><img src="shopee_logo_v2.png" alt="Shopee"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="mercadolivre_premium.png" alt="Mercado Livre"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="bling_logo.png" alt="Bling" class="marquee-logo no-filter">
                         </div>
-                        <div class="marquee-item">
-                            <img src="gohighlevel_premium.png" alt="GoHighLevel"
-                                class="marquee-logo no-filter scale-125">
-                        </div>
-                        <div class="marquee-item" data-brand="tiny">
-                            <img src="tiny_premium.png" alt="Tiny ERP" class="marquee-logo no-filter">
-                        </div>
-                        <div class="marquee-item">
-                            <img src="kiwify_logo.png" alt="Kiwify" class="marquee-logo no-filter">
-                        </div>
-                        <div class="marquee-item">
-                            <img src="mercadopago_logo.png" alt="Mercado Pago" class="marquee-logo no-filter">
-                        </div>
-                        <div class="marquee-item">
-                            <img src="paypal_logo.png" alt="PayPal" class="marquee-logo no-filter">
-                        </div>
-                        <!-- Duplicate for loop -->
-                        <div class="marquee-item">
-                            <img src="shopee_logo_v2.png" alt="Shopee" class="marquee-logo no-filter">
-                        </div>
-                        <div class="marquee-item">
-                            <img src="mercadolivre_premium.png" alt="Mercado Livre" class="marquee-logo no-filter">
-                        </div>
-                        <div class="marquee-item">
-                            <img src="bling_logo.png" alt="Bling" class="marquee-logo no-filter">
-                        </div>
-                        <div class="marquee-item">
-                            <img src="nuvemshop_premium.png" alt="Nuvemshop" class="marquee-logo no-filter scale-125">
-                        </div>
-                        <div class="marquee-item">
-                            <img src="gohighlevel_premium.png" alt="GoHighLevel"
-                                class="marquee-logo no-filter scale-125">
-                        </div>
-                        <div class="marquee-item" data-brand="tiny">
-                            <img src="tiny_premium.png" alt="Tiny ERP" class="marquee-logo no-filter">
-                        </div>
-                        <div class="marquee-item">
-                            <img src="kiwify_logo.png" alt="Kiwify" class="marquee-logo no-filter">
-                        </div>
-                        <div class="marquee-item">
-                            <img src="mercadopago_logo.png" alt="Mercado Pago" class="marquee-logo no-filter">
-                        </div>
-                        <div class="marquee-item">
-                            <img src="paypal_logo.png" alt="PayPal" class="marquee-logo no-filter">
-                        </div>
+                        <div class="marquee-item"><img src="nuvemshop_premium.png" alt="Nuvemshop"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <div class="marquee-item"><img src="gohighlevel_premium.png" alt="GoHighLevel"
+                                class="marquee-logo no-filter scale-125"></div>
+                        <div class="marquee-item"><img src="tiny_premium.png" alt="Tiny ERP"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="kiwify_logo.png" alt="Kiwify"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="mercadopago_logo.png" alt="Mercado Pago"
+                                class="marquee-logo no-filter"></div>
+                        <div class="marquee-item"><img src="paypal_logo.png" alt="PayPal"
+                                class="marquee-logo no-filter"></div>
                     </div>
                 </div>
             </div>
@@ -2634,6 +2593,7 @@
             <div class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black to-transparent z-20"></div>
 
             <div class="testimonials-marquee">
+                <!-- Set 1 -->
                 <div class="testimonial-card">
                     <div class="flex items-center gap-4 mb-6">
                         <div
@@ -2720,6 +2680,7 @@
                     </div>
                 </div>
 
+                <!-- Set 2 -->
                 <div class="testimonial-card">
                     <div class="flex items-center gap-4 mb-6">
                         <div
@@ -2747,6 +2708,7 @@
                         <div class="note-badge scale-90 origin-right">Nota 10/10</div>
                     </div>
                 </div>
+
                 <div class="testimonial-card">
                     <div class="flex items-center gap-4 mb-6">
                         <div
@@ -2763,6 +2725,209 @@
                     <p class="text-white text-xl leading-normal italic font-medium mb-8 flex-1">
                         "A qualificação automática mudou nossa vida. Hoje meus vendedores só focam no fechamento, sem
                         perder tempo com curiosos."
+                    </p>
+                    <div class="mt-auto flex items-center justify-between border-t border-white/5 pt-5">
+                        <div class="flex gap-1">
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                        </div>
+                        <div class="note-badge scale-90 origin-right">Nota 10/10</div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full overflow-hidden border-2 border-q-primary/30 shadow-lg shadow-q-primary/5">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&h=200&auto=format&fit=crop"
+                                alt="Marcos Vinícius" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-lg leading-tight">Marcos Vinícius</h4>
+                            <p class="text-q-primary text-xs font-semibold tracking-wide mt-1">Founder @ ScaleAgência
+                            </p>
+                        </div>
+                    </div>
+                    <p class="text-white text-xl leading-normal italic font-medium mb-8 flex-1">
+                        "O CRM organizado e as automações da Quantic nos permitiram escalar de 50 para 200 leads diários
+                        sem contratar mais ninguém."
+                    </p>
+                    <div class="mt-auto flex items-center justify-between border-t border-white/5 pt-5">
+                        <div class="flex gap-1">
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                        </div>
+                        <div class="note-badge scale-90 origin-right">Nota 10/10</div>
+                    </div>
+                </div>
+
+                <!-- Set 3 -->
+                <div class="testimonial-card">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full overflow-hidden border-2 border-q-primary/30 shadow-lg shadow-q-primary/5">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&h=200&auto=format&fit=crop"
+                                alt="Ricardo Mendes" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-lg leading-tight">Ricardo Mendes</h4>
+                            <p class="text-q-primary text-xs font-semibold tracking-wide mt-1">CEO @ TechGlobal</p>
+                        </div>
+                    </div>
+                    <p class="text-white text-xl leading-normal italic font-medium mb-8 flex-1">
+                        "Implementamos a IA de prospecção e o resultado foi imediato. Triplicamos as reuniões agendadas
+                        em menos de 20 dias."
+                    </p>
+                    <div class="mt-auto flex items-center justify-between border-t border-white/5 pt-5">
+                        <div class="flex gap-1">
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                        </div>
+                        <div class="note-badge scale-90 origin-right">Nota 10/10</div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full overflow-hidden border-2 border-q-primary/30 shadow-lg shadow-q-primary/5">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&h=200&auto=format&fit=crop"
+                                alt="Ana Paula Silva" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-lg leading-tight">Ana Paula Silva</h4>
+                            <p class="text-q-primary text-xs font-semibold tracking-wide mt-1">Dir. Comercial @
+                                ImobiFlow</p>
+                        </div>
+                    </div>
+                    <p class="text-white text-xl leading-normal italic font-medium mb-8 flex-1">
+                        "A qualificação automática mudou nossa vida. Hoje meus vendedores só focam no fechamento, sem
+                        perder tempo com curiosos."
+                    </p>
+                    <div class="mt-auto flex items-center justify-between border-t border-white/5 pt-5">
+                        <div class="flex gap-1">
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                        </div>
+                        <div class="note-badge scale-90 origin-right">Nota 10/10</div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full overflow-hidden border-2 border-q-primary/30 shadow-lg shadow-q-primary/5">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&h=200&auto=format&fit=crop"
+                                alt="Marcos Vinícius" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-lg leading-tight">Marcos Vinícius</h4>
+                            <p class="text-q-primary text-xs font-semibold tracking-wide mt-1">Founder @ ScaleAgência
+                            </p>
+                        </div>
+                    </div>
+                    <p class="text-white text-xl leading-normal italic font-medium mb-8 flex-1">
+                        "O CRM organizado e as automações da Quantic nos permitiram escalar de 50 para 200 leads diários
+                        sem contratar mais ninguém."
+                    </p>
+                    <div class="mt-auto flex items-center justify-between border-t border-white/5 pt-5">
+                        <div class="flex gap-1">
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                        </div>
+                        <div class="note-badge scale-90 origin-right">Nota 10/10</div>
+                    </div>
+                </div>
+
+                <!-- Set 4 -->
+                <div class="testimonial-card">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full overflow-hidden border-2 border-q-primary/30 shadow-lg shadow-q-primary/5">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&h=200&auto=format&fit=crop"
+                                alt="Ricardo Mendes" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-lg leading-tight">Ricardo Mendes</h4>
+                            <p class="text-q-primary text-xs font-semibold tracking-wide mt-1">CEO @ TechGlobal</p>
+                        </div>
+                    </div>
+                    <p class="text-white text-xl leading-normal italic font-medium mb-8 flex-1">
+                        "Implementamos a IA de prospecção e o resultado foi imediato. Triplicamos as reuniões agendadas
+                        em menos de 20 dias."
+                    </p>
+                    <div class="mt-auto flex items-center justify-between border-t border-white/5 pt-5">
+                        <div class="flex gap-1">
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                        </div>
+                        <div class="note-badge scale-90 origin-right">Nota 10/10</div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full overflow-hidden border-2 border-q-primary/30 shadow-lg shadow-q-primary/5">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&h=200&auto=format&fit=crop"
+                                alt="Ana Paula Silva" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-lg leading-tight">Ana Paula Silva</h4>
+                            <p class="text-q-primary text-xs font-semibold tracking-wide mt-1">Dir. Comercial @
+                                ImobiFlow</p>
+                        </div>
+                    </div>
+                    <p class="text-white text-xl leading-normal italic font-medium mb-8 flex-1">
+                        "A qualificação automática mudou nossa vida. Hoje meus vendedores só focam no fechamento, sem
+                        perder tempo com curiosos."
+                    </p>
+                    <div class="mt-auto flex items-center justify-between border-t border-white/5 pt-5">
+                        <div class="flex gap-1">
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                            <span class="text-yellow-500 star-glow text-sm">★</span>
+                        </div>
+                        <div class="note-badge scale-90 origin-right">Nota 10/10</div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full overflow-hidden border-2 border-q-primary/30 shadow-lg shadow-q-primary/5">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&h=200&auto=format&fit=crop"
+                                alt="Marcos Vinícius" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-lg leading-tight">Marcos Vinícius</h4>
+                            <p class="text-q-primary text-xs font-semibold tracking-wide mt-1">Founder @ ScaleAgência
+                            </p>
+                        </div>
+                    </div>
+                    <p class="text-white text-xl leading-normal italic font-medium mb-8 flex-1">
+                        "O CRM organizado e as automações da Quantic nos permitiram escalar de 50 para 200 leads diários
+                        sem contratar mais ninguém."
                     </p>
                     <div class="mt-auto flex items-center justify-between border-t border-white/5 pt-5">
                         <div class="flex gap-1">
@@ -2934,7 +3099,7 @@
     </section>
 
     <!-- Footer CTA -->
-    <section class="py-32 bg-transparent relative overflow-hidden">
+    <section class="py-16 md:py-32 bg-transparent relative overflow-hidden">
         <!-- Background decorative glows -->
         <div class="absolute top-0 left-1/4 w-96 h-96 bg-q-primary/10 blur-[120px] rounded-full pointer-events-none">
         </div>
@@ -2944,14 +3109,14 @@
 
         <div class="max-w-5xl mx-auto px-4 relative z-10">
             <div
-                class="glass-card p-12 md:p-20 rounded-[3rem] border border-white/10 text-center relative group overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.5)] hover:shadow-[0_0_100px_rgba(122,51,255,0.3)] hover:border-q-primary/50 transition-all duration-700">
+                class="glass-card p-8 md:p-20 rounded-[2rem] md:rounded-[3rem] border border-white/10 text-center relative group overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.5)] hover:shadow-[0_0_100px_rgba(122,51,255,0.3)] hover:border-q-primary/50 transition-all duration-700">
                 <!-- Background shimmer effect -->
                 <div
                     class="absolute inset-0 bg-gradient-to-br from-q-primary/[0.03] via-transparent to-q-primary/[0.03]">
                 </div>
 
                 <div class="relative z-10">
-                    <h2 class="font-display text-4xl md:text-6xl font-bold mb-8 text-white leading-tight">
+                    <h2 class="font-display text-3xl md:text-6xl font-bold mb-6 md:mb-8 text-white leading-tight">
                         Pronto para automatizar sua <br />
                         <span class="text-q-primary drop-shadow-[0_0_20px_rgba(122,51,255,0.8)]">máquina de
                             vendas?</span>
@@ -2962,7 +3127,7 @@
 
                     <div class="flex flex-col items-center justify-center gap-8">
                         <a href="agendar.html"
-                            class="px-14 py-7 bg-q-primary text-white rounded-full font-bold text-2xl hover:scale-105 transition-all shadow-[0_0_50px_rgba(122,51,255,0.4)] hover:shadow-[0_0_70px_rgba(122,51,255,0.7)] group-hover:-translate-y-1">
+                            class="px-8 py-5 md:px-14 md:py-7 bg-q-primary text-white rounded-full font-bold text-lg md:text-2xl hover:scale-105 transition-all shadow-[0_0_50px_rgba(122,51,255,0.4)] hover:shadow-[0_0_70px_rgba(122,51,255,0.7)] group-hover:-translate-y-1">
                             Agendar Minha Demonstração
                         </a>
 
@@ -3148,20 +3313,6 @@
 
     <!-- Scripts -->
     <script>
-        // Mobile Menu Toggle
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
-
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-        });
-
-        // Close menu when clicking a link
-        menu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                menu.classList.add('hidden');
-            });
-        });
 
         // Neural Network Animation Refactored for multiple instances
         class NeuralBackground {
